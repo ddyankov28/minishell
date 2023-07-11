@@ -1,0 +1,214 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
+/*   Updated: 2023/07/11 17:00:45 by ddyankov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINI_H
+# define MINI_H
+
+# include "./libft/libft.h"
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+
+typedef struct s_mini
+{
+	char			*input;
+	char			**args;
+	int				argc;
+	int				*space_flag;
+	int				space_or_not;
+	int				*pipe_fds;
+	char			**env;
+	char			*value;
+	int				input_fd;
+	int				output_fd;
+	int				append_fd;
+	int				stdin_copy;
+	int				stdout_copy;
+	int				index;
+	int				exit_flag;
+	int				flag_for_pair;
+	int				i;
+	int				export_sw;
+	int				count;
+	char			**heredoc;
+	char			**commands;
+	int				num_commands;
+	int				expecting_heredoc;
+	int				new_line;
+}					t_mini;
+
+extern unsigned int	g_exit_status;
+
+/* main utils */
+void				ft_handle_input(t_mini *mini);
+void				ft_copy_envp(t_mini *mini);
+
+// builtins_echo.c
+void				ft_handle_echo(t_mini *mini);
+void				ft_echo(t_mini *mini, char **args, int i);
+void				ft_echo_double(t_mini *mini, char *args, int index);
+void				ft_echo_single(t_mini *mini, char *args, int index);
+void				ft_echo_unclosed(t_mini *mini, char *args, int index);
+
+// builtins_echo2.c
+void				ft_echo_env(t_mini *mini, char *args);
+int					ft_split_double(t_mini *mini, char *args, int i);
+int					ft_envval_doublequote(t_mini *mini, char *args, char *str,
+						int i);
+int					ft_split_unclosed(t_mini *mini, char *args, int i);
+int					ft_envval_unclosed(t_mini *mini, char *args, char *str,
+						int i);
+
+//builtins_echo3.c
+int					ft_check_for_end(char *str, int i);
+int					ft_echo_unclosed_loop(t_mini *mini, char *args, int i);
+
+//builtins_main.c
+void				ft_execute_built_ins(t_mini *mini, char *input);
+int					ft_is_builtin(t_mini *mini, char *command);
+
+//builtins.c
+void				ft_change_directory(t_mini *mini);
+void				ft_show_directory(void);
+void				ft_show_environment(t_mini *mini);
+
+//builtins_export_unset.c
+char				**ft_set_environment_variable(const char *name, char *value,
+						char **env);
+char				**ft_unset_environment_variable(t_mini *mini);
+char				**ft_modified_env(t_mini *mini, int count);
+void				ft_handle_export(t_mini *mini);
+
+//builtins_export_unset_utils.c
+char				*ft_name(t_mini *mini);
+int					ft_value(t_mini *mini);
+int					ft_env(char **env, char **new_env);
+
+//command_check.c
+int					ft_check_if_command(t_mini *mini);
+int					ft_check_if_external(t_mini *mini);
+int					ft_check_if_access(int i, char **dirs, char **args);
+
+// count_input_arguments.c
+void				ft_count_if_space(t_mini *mini);
+void				ft_count_if_single_quote(t_mini *mini);
+void				ft_count_if_double_quote(t_mini *mini);
+void				ft_count_if_redirections(t_mini *mini, char c);
+void				ft_count_if_pipes(t_mini *mini);
+
+//execute_external.c
+int					ft_change_value(t_mini *mini);
+void				ft_exit_if_no_path(t_mini *mini);
+void				ft_search_and_execute(t_mini *mini);
+int					ft_check_access_for_external(t_mini *mini, int i,
+						char **dirs, char **args);
+void				ft_execute_external(char *path, t_mini *mini, char **args);
+
+//exit.c
+void				ft_exit(char *input, t_mini *mini);
+
+//  free.c
+void				ft_free_input(t_mini *mini);
+void				ft_free_result_commands(t_mini *mini);
+void				ft_free_when_forked(t_mini *mini);
+void				ft_free_malloc(t_mini *mini);
+void				ft_free_env_input(t_mini *mini);
+
+// modifying_quotes.c
+void				ft_init_struct(t_mini *mini);
+void				ft_skip_spaces(t_mini *mini, char *str);
+void				ft_reset_flag(t_mini *mini);
+int					ft_check_if_num(t_mini *mini, char *str);
+
+//pipe_commands.c
+void				ft_exec_external(t_mini *mini, char **args, char **envp);
+void				ft_execute_built_in_command(t_mini *mini, char **args);
+
+//pipe_split.c
+void				ft_split_into_commands(t_mini *mini);
+void				ft_help_split_commands(t_mini *mini, int i, int index,
+						char *command);
+
+//pipe_utils.c
+void				ft_create_pipes(t_mini *mini, int *pipe_fds);
+void				ft_close_pipes(int num_commands, int *pipe_fds);
+void				ft_output(t_mini *mini, int i, int num_commands,
+						int *pipe_fds);
+void				ft_input(t_mini *mini, int i, int *pipe_fds);
+void				ft_dup_child(t_mini *mini, int i, int num_commands,
+						int *pipe_fds);
+
+//pipe.c
+int					ft_execute_pipes(t_mini *mini);
+void				ft_fork_for_commands(t_mini *mini, int *pipe_fds);
+void				ft_fork_for_commands_extension(t_mini *mini, int i,
+						int *pipe_fds);
+void				ft_wait_for_processes(int num_commands);
+
+//redirections_double_left_utils.c
+int					ft_read_input_redirection(t_mini *mini, char *delimiter,
+						int i);
+
+//  redirections_main.c
+int					ft_check_for_redirection(t_mini *mini);
+
+//redirections_handle_fds.c
+void				ft_apply_input_redirections(t_mini *mini);
+void				ft_restore_and_close_fds(t_mini *mini);
+int					ft_redirect_right_check(t_mini *mini);
+
+//split_input_for_quotes.c
+void				ft_split_double_quotes(t_mini *mini);
+void				ft_split_single_quotes(t_mini *mini);
+void				ft_single_and_double_extension(t_mini *mini, int j, int x);
+
+//split_input_for_space_pipes_red.c
+void				ft_split_space(t_mini *mini);
+int					ft_put_in_args_extension(t_mini *mini);
+void				ft_split_redirections(t_mini *mini, char c);
+void				ft_split_pipes(t_mini *mini);
+
+//split_input_main.c
+void				ft_split_input(t_mini *mini);
+void				ft_loop_input_string(t_mini *mini);
+void				ft_count_arguments(t_mini *mini);
+int					ft_handle_spaceflag(t_mini *mini, int j);
+
+//split_input_utils.c
+int					ft_swap_arguments(t_mini *mini);
+void				ft_redirections_change_position(t_mini *mini);
+int					ft_look_for_quote(t_mini *mini, char *str, int i);
+void				ft_look_for_pair(t_mini *mini);
+int					ft_look_for_pair_in_pair(t_mini *mini);
+
+// utils.c
+int					ft_strcmp_with_quotes(t_mini *mini, char *str,
+						char *builtin);
+int					ft_strcmp_with_quotes_extension(t_mini *mini, char *str,
+						char *builtin, int i);
+void				ft_write_without_quotes(t_mini *mini, char *str);
+int					ft_delete_quotes_for_str(t_mini *mini, int i);
+int					ft_delete_quotes(t_mini *mini);
+void				ft_command_not_found(t_mini *mini, int sw, int i);
+void				ft_write_space(t_mini *mini, int index);
+int					ft_atoi_customize(t_mini *mini, const char *str);
+void				ft_check_path(t_mini *mini, char *path_env);
+
+#endif

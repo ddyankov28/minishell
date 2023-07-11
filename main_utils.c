@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
+/*   Updated: 2023/07/06 22:28:01 by ddyankov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "mini.h"
+
+void	ft_copy_envp(t_mini *mini)
+{
+	extern char	**environ;
+	int			i;
+
+	i = 0;
+	while (environ[i] != NULL)
+		i++;
+	mini->env = malloc(sizeof(char *) * (i + 1));
+	if (!mini->env)
+	{
+		free(mini->env);
+		printf("Environment Malloc Failed\n");
+		exit(1);
+	}
+	i = 0;
+	while (environ[i])
+	{
+		mini->env[i] = ft_strdup(environ[i]);
+		i++;
+	}
+	mini->env[i] = NULL;
+	mini->new_line = 0;
+}
+
+static void	ft_fork_for_externals(t_mini *mini)
+{
+	pid_t	pid;
+	int		status;
+
+	if (!ft_strcmp(mini->args[0], "cat") || !ft_strcmp(mini->args[0], "grep"))
+		mini->new_line = 1;
+	pid = fork();
+	signal(SIGINT, SIG_IGN);
+	{
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(1);
+		}
+		else if (!pid)
+		{
+			signal(SIGINT, SIG_DFL);
+			ft_search_and_execute(mini);
+			exit(0);
+		}
+		else
+		{
+			waitpid(pid, &status, 0);
+			g_exit_status = WEXITSTATUS(status);
+		}
+	}
+}
+
+static void	ft_read_input(t_mini *mini)
+{
+	if (!mini->args[0])
+		return ;
+	if (!ft_check_for_redirection(mini))
+		return ;
+	if (ft_is_builtin(mini, mini->args[0]))
+		ft_execute_built_ins(mini, mini->input);
+	else
+		ft_fork_for_externals(mini);
+	ft_check_if_command(mini);
+	ft_restore_and_close_fds(mini);
+}
+
+void	ft_handle_input(t_mini *mini)
+{
+	if (!mini->args[0])
+	{
+		free(mini->args);
+		free(mini->space_flag);
+		return ;
+	}
+	if (mini->args[0][0] == '|')
+	{
+		ft_free_input(mini);
+		printf("minishell: syntax error near unexpected token '|'\n");
+		return ;
+	}
+	if (ft_check_if_pipe(mini->args))
+		ft_execute_pipes(mini);
+	else
+	{
+		ft_read_input(mini);
+		ft_free_input(mini);
+	}
+}
