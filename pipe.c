@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/10 18:47:58 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:08:00 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_execute_pipes(t_mini *mini)
 {
-	if (!ft_strcmp(mini->args[0], "cat") || !ft_strcmp(mini->args[0], "grepcl"))
+	if ((!ft_strcmp(mini->args[0], "cat") && !mini->args[1])
+		|| (!ft_strcmp(mini->args[0], "grep") && mini->args[1]))
 		mini->new_line = 1;
 	ft_split_into_commands(mini);
 	mini->num_commands = ft_len_2d_arr(mini->commands);
@@ -66,7 +67,7 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 	ft_close_pipes(mini->num_commands, pipe_fds);
 	free(pipe_fds);
 	ft_execute_built_in_command(mini, mini->args);
-	ft_exec_external(mini, mini->args, mini->env);
+	ft_search_and_execute(mini, 1);
 }
 
 void	ft_wait_for_processes(int num_commands)

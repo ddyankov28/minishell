@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/11 17:00:45 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:35:28 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ extern unsigned int	g_exit_status;
 /* main utils */
 void				ft_handle_input(t_mini *mini);
 void				ft_copy_envp(t_mini *mini);
+void				sigint_handler(int sig);
+void				ft_check_status(int status);
 
 // builtins_echo.c
 void				ft_handle_echo(t_mini *mini);
@@ -116,7 +118,7 @@ void				ft_count_if_pipes(t_mini *mini);
 //execute_external.c
 int					ft_change_value(t_mini *mini);
 void				ft_exit_if_no_path(t_mini *mini);
-void				ft_search_and_execute(t_mini *mini);
+void				ft_search_and_execute(t_mini *mini, int sw);
 int					ft_check_access_for_external(t_mini *mini, int i,
 						char **dirs, char **args);
 void				ft_execute_external(char *path, t_mini *mini, char **args);
@@ -138,7 +140,6 @@ void				ft_reset_flag(t_mini *mini);
 int					ft_check_if_num(t_mini *mini, char *str);
 
 //pipe_commands.c
-void				ft_exec_external(t_mini *mini, char **args, char **envp);
 void				ft_execute_built_in_command(t_mini *mini, char **args);
 
 //pipe_split.c
@@ -209,6 +210,6 @@ int					ft_delete_quotes(t_mini *mini);
 void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
 int					ft_atoi_customize(t_mini *mini, const char *str);
-void				ft_check_path(t_mini *mini, char *path_env);
+void				ft_check_path(t_mini *mini, char *path_env, int sw);
 
 #endif

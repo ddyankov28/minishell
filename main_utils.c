@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/06 22:28:01 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:35:53 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ void	ft_copy_envp(t_mini *mini)
 	mini->new_line = 0;
 }
 
+static void	ft_check_command(t_mini *mini)
+{
+	if ((!ft_strcmp(mini->args[0], "cat") && !mini->args[1])
+		|| (!ft_strcmp(mini->args[0], "grep") && mini->args[1]))
+		mini->new_line = 1;
+}
+
 static void	ft_fork_for_externals(t_mini *mini)
 {
 	pid_t	pid;
 	int		status;
 
-	if (!ft_strcmp(mini->args[0], "cat") || !ft_strcmp(mini->args[0], "grep"))
-		mini->new_line = 1;
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
 	{
@@ -55,13 +60,13 @@ static void	ft_fork_for_externals(t_mini *mini)
 		else if (!pid)
 		{
 			signal(SIGINT, SIG_DFL);
-			ft_search_and_execute(mini);
+			ft_search_and_execute(mini, 0);
 			exit(0);
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
-			g_exit_status = WEXITSTATUS(status);
+			ft_check_status(status);
 		}
 	}
 }
@@ -70,6 +75,7 @@ static void	ft_read_input(t_mini *mini)
 {
 	if (!mini->args[0])
 		return ;
+	ft_check_command(mini);
 	if (!ft_check_for_redirection(mini))
 		return ;
 	if (ft_is_builtin(mini, mini->args[0]))

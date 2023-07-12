@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_main.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/28 15:57:49 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:36:33 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	ft_redirect_left(t_mini *mini, int i)
 	mini->input_fd = open(mini->args[i + 1], O_RDONLY);
 	if (i == 0)
 		return (1);
-	if (mini->input_fd != -1)
+	if (mini->input_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(mini->args[i + 1], STDERR_FILENO);

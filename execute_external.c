@@ -6,20 +6,20 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:41 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/11 17:01:07 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:13:44 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	ft_search_and_execute(t_mini *mini)
+void	ft_search_and_execute(t_mini *mini, int sw)
 {
 	char	*path_env;
 	char	**dirs;
 	int		i;
 
 	path_env = ft_get_value_from_env(mini->env, "PATH");
-	ft_check_path(mini, path_env);
+	ft_check_path(mini, path_env, sw);
 	dirs = ft_split(path_env, ':');
 	i = 0;
 	ft_change_value(mini);
@@ -32,36 +32,31 @@ void	ft_search_and_execute(t_mini *mini)
 	}
 	ft_free_2d_arr(dirs);
 	ft_command_not_found(mini, 1, 0);
-	ft_free_2d_arr(mini->env);
-	ft_free_input(mini);
+	if (sw == 0)
+	{
+		ft_free_2d_arr(mini->env);
+		ft_free_input(mini);
+	}
+	else
+		ft_free_when_forked(mini);
 }
 
 int	ft_check_access_for_external(t_mini *mini, int i, char **dirs, char **args)
 {
-	int		x;
 	char	*dir_path;
 	char	*path;
 
-	x = 0;
 	dir_path = ft_strjoin(dirs[i], "/");
-	if (ft_strchr(args[0], '/') != NULL)
-		path = args[0];
-	else
-	{
-		path = ft_strjoin(dir_path, args[0]);
-		x = 1;
-	}
+	path = ft_strjoin(dir_path, args[0]);
 	free(dir_path);
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		ft_execute_external(path, mini, args);
-		if (x == 1)
-			free(path);
+		free(path);
 		ft_free_2d_arr(dirs);
 		return (1);
 	}
-	if (x == 1)
-		free(path);
+	free(path);
 	return (0);
 }
 
@@ -75,7 +70,7 @@ void	ft_exit_if_no_path(t_mini *mini)
 	}
 	ft_free_2d_arr(mini->env);
 	ft_free_input(mini);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
 int	ft_change_value(t_mini *mini)

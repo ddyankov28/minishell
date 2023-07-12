@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/06 22:24:01 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:30:08 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned int	g_exit_status;
 
-static void	sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\n");
@@ -46,12 +46,11 @@ static void	ft_check_args(int ac, char **av)
 
 static void	ft_readline(t_mini *mini)
 {
-	if (!mini->new_line)
+	if (g_exit_status != 130)
 		mini->input = readline("~$ ");
 	else
 		mini->input = readline("\n~$ ");
-	if (mini->new_line)
-		mini->new_line = 0;
+	g_exit_status = 0;
 }
 
 int	main(int argc, char **argv)

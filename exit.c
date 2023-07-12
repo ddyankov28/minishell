@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:52:41 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/29 12:59:32 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:04:51 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void	ft_exit(char *input, t_mini *mini)
 		}
 	}
 	ft_free_env_input(mini);
-	exit(0);
+	exit(g_exit_status);
 }

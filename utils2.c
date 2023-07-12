@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/11 18:54:03 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:36:05 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,26 @@ int	ft_atoi_customize(t_mini *mini, const char *str)
 	return (result * sign);
 }
 
-void	ft_check_path(t_mini *mini, char *path_env)
+void	ft_check_path(t_mini *mini, char *path_env, int sw)
 {
-	if (mini->input[0] == '/')
-		execve(mini->input, mini->args, mini->env);
+	if (ft_strchr(mini->args[0], '/') != NULL)
+		execve(mini->args[0], mini->args, mini->env);
 	else
 	{
-		if (!path_env)
+		if (!path_env && sw == 0)
 			ft_exit_if_no_path(mini);
+		else if (!path_env && sw == 1)
+		{
+			printf("minishell: %s: No such file or directory\n", mini->args[0]);
+			ft_free_when_forked(mini);
+		}
 	}
+}
+
+void	ft_check_status(int status)
+{
+	if (status == 2)
+		g_exit_status = 130;
+	else
+		g_exit_status = WEXITSTATUS(status);
 }

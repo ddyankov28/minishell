@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/05 21:15:18 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:07:22 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	ft_print_herdoc(char **heredoc)
 	i = 0;
 	while (heredoc[i])
 	{
-		ft_putstr_fd(heredoc[i], STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr_fd(heredoc[i], 1);
+		ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
