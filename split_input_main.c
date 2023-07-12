@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_main.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/29 11:37:35 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:18:41 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_split_input(t_mini *mini)
 		exit(EXIT_FAILURE);
 	}
 	ft_loop_input_string(mini);
-	if (mini->input[mini->i] != '\0')
-		ft_redirections_change_position(mini);
+	ft_redirections_change_position(mini);
 	mini->args[mini->index] = NULL;
 }
 
