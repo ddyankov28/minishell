@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:03 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/29 14:11:15 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:32:09 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	ft_change_directory(t_mini *mini)
 
 	i = 0;
 	g_exit_status = 0;
-	if (mini->args[1] == NULL || (ft_strcmp(mini->args[1], "~") == 0))
+	if (!mini->args[1] || (!ft_strcmp(mini->args[1], "~")))
 	{
 		path_env = ft_get_value_from_env(mini->env, "PATH");
-		if (path_env == NULL)
+		if (!path_env)
 			perror("cd");
 		dirs = ft_split(path_env, ':');
 		while (dirs[0][i])
@@ -41,7 +41,7 @@ void	ft_change_directory(t_mini *mini)
 			perror("cd");
 		ft_free_2d_arr(dirs);
 	}
-	else if (ft_strcmp_with_quotes(mini, mini->args[1], "$PWD") == 0)
+	else if (!ft_strcmp_with_quotes(mini, mini->args[1], "$PWD"))
 		g_exit_status = 0;
 	else if (chdir(mini->args[1]) != 0)
 		ft_change_directory_perror(mini);
