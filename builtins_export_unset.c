@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/29 13:34:50 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:25:27 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_handle_export(t_mini *mini)
 		{
 			ft_printf("minishell: export: %s: not a valid identifier\n",
 				mini->args[1]);
-			g_exit_status = 1;
+			mini->exit_value = 1;
 			free(name);
 			return ;
 		}

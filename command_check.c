@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/28 10:28:08 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:25:26 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_check_if_external(t_mini *mini)
 		i++;
 	}
 	ft_free_2d_arr(dirs);
-	g_exit_status = 127;
+	mini->exit_value = 127;
 	return (1);
 }
 

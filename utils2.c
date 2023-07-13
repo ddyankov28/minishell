@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/12 14:36:05 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:26:09 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_command_not_found(t_mini *mini, int sw, int i)
 	if (sw == 1)
 	{
 		ft_printf(": Command not found\n");
-		g_exit_status = 127;
+		mini->exit_value = 127;
 	}
 	return ;
 }
@@ -82,10 +82,13 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 	}
 }
 
-void	ft_check_status(int status)
+void	ft_check_status(t_mini *mini, int status)
 {
 	if (status == 2)
+	{
+		mini->exit_value = 130;
 		g_exit_status = 130;
+	}
 	else
-		g_exit_status = WEXITSTATUS(status);
+		mini->exit_value = WEXITSTATUS(status);
 }

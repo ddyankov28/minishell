@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/12 14:30:08 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:08:58 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,24 @@ static void	ft_readline(t_mini *mini)
 	g_exit_status = 0;
 }
 
+int	ft_check_input(t_mini *mini, char *input)
+{
+	if (ft_strcmp(input, "\"\"") == 0)
+	{
+		printf("'': command not found\n");
+		mini->exit_value = 127;
+		return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mini	mini;
 
 	ft_check_args(argc, argv);
 	ft_copy_envp(&mini);
+	mini.exit_value = 0;
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);
@@ -66,7 +78,7 @@ int	main(int argc, char **argv)
 		ft_init_struct(&mini);
 		ft_readline(&mini);
 		ft_ctrl_d(&mini);
-		if (mini.input[0] != '\0')
+		if (mini.input[0] != '\0' && ft_check_input(&mini, mini.input) == 0)
 		{
 			ft_split_input(&mini);
 			ft_handle_input(&mini);

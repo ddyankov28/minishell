@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/12 14:35:28 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/13 13:13:16 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_mini
 	int				num_commands;
 	int				expecting_heredoc;
 	int				new_line;
+	int				exit_value;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -60,7 +61,7 @@ extern unsigned int	g_exit_status;
 void				ft_handle_input(t_mini *mini);
 void				ft_copy_envp(t_mini *mini);
 void				sigint_handler(int sig);
-void				ft_check_status(int status);
+void				ft_check_status(t_mini *mini, int status);
 
 // builtins_echo.c
 void				ft_handle_echo(t_mini *mini);
@@ -87,8 +88,7 @@ void				ft_execute_built_ins(t_mini *mini, char *input);
 int					ft_is_builtin(t_mini *mini, char *command);
 
 //builtins.c
-void				ft_change_directory(t_mini *mini);
-void				ft_show_directory(void);
+void				ft_show_directory(t_mini *mini);
 void				ft_show_environment(t_mini *mini);
 
 //builtins_export_unset.c
@@ -102,6 +102,9 @@ void				ft_handle_export(t_mini *mini);
 char				*ft_name(t_mini *mini);
 int					ft_value(t_mini *mini);
 int					ft_env(char **env, char **new_env);
+
+//cd.c
+void				ft_change_directory(t_mini *mini);
 
 //command_check.c
 int					ft_check_if_command(t_mini *mini);

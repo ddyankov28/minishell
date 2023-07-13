@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/28 15:26:56 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:27:52 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_execute_built_ins(t_mini *mini, char *input)
 	else if (ft_strcmp_with_quotes(mini, mini->args[0], "cd") == 0)
 		ft_change_directory(mini);
 	else if (ft_strcmp_with_quotes(mini, mini->args[0], "pwd") == 0)
-		ft_show_directory();
+		ft_show_directory(mini);
 	else if (ft_strcmp_with_quotes(mini, mini->args[0], "env") == 0)
 		ft_show_environment(mini);
 	else if (ft_strcmp_with_quotes(mini, mini->args[0], "echo") == 0)

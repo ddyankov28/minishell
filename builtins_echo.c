@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:30 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/29 13:33:02 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:52:30 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	ft_check_n(t_mini *mini, int j)
+{
+	int	i;
+
+	i = 0;
+	if (mini->args[j][i] == '"')
+		i++;
+	if (mini->args[j][i] != '-')
+		return (1);
+	i++;
+	if (mini->args[j][i] == '\0')
+		return (1);
+	while (mini->args[j][i] && mini->args[j][i] != '"')
+	{
+		if (mini->args[j][i] != 'n')
+			return (1);
+		i++;
+	}
+	if (mini->space_flag[j] == 0)
+		return (1);
+	return (0);
+}
 
 void	ft_handle_echo(t_mini *mini)
 {
@@ -22,9 +45,9 @@ void	ft_handle_echo(t_mini *mini)
 		ft_putchar_fd('\n', 1);
 		return ;
 	}
-	if (ft_strcmp_with_quotes(mini, mini->args[1], "-n") == 0)
+	if (ft_check_n(mini, i) == 0)
 	{
-		while (ft_strcmp_with_quotes(mini, mini->args[i], "-n") == 0)
+		while (ft_check_n(mini, i) == 0)
 			i++;
 		if (!mini->args[i])
 			return ;

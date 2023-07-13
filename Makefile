@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
+#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/06/29 12:59:49 by vstockma         ###   ########.fr        #
+#    Updated: 2023/07/13 13:12:05 by valentin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 SRC = main.c main_utils.c\
 	builtins_echo.c builtins_echo2.c builtins_echo3.c\
 	builtins_main.c builtins.c builtins_export_unset.c builtins_export_unset_utils.c\
-	exit.c\
+	exit.c cd.c\
 	count_input_arguments.c command_check.c\
 	pipe.c pipe_utils.c pipe_split.c pipe_commands.c\
 	redirections_main.c\

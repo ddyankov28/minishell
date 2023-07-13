@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/29 12:05:33 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:25:27 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_split_double(t_mini *mini, char *args, int i)
 	i++;
 	if (args[i] == '?')
 	{
-		ft_printf("%d", g_exit_status);
+		ft_printf("%d", mini->exit_value);
 		i++;
 	}
 	else
@@ -54,7 +54,7 @@ int	ft_envval_doublequote(t_mini *mini, char *args, char *str, int i)
 		counter++;
 	while (args[i] && args[i] != '$' && args[i] != '"' && args[i] != ' ')
 	{
-		if (args[i] == '\'' && ft_look_for_quote(mini, args, i) == 1)
+		if (args[i] == '\'')
 			break ;
 		str[j] = args[i];
 		i++;
@@ -84,7 +84,7 @@ int	ft_split_unclosed(t_mini *mini, char *args, int i)
 	i++;
 	if (args[i] == '?')
 	{
-		ft_printf("%d", g_exit_status);
+		ft_printf("%d", mini->exit_value);
 		i++;
 	}
 	else
