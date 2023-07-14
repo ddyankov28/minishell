@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 12:37:20 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:12:43 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	main(int argc, char **argv)
 		}
 		if (ft_strlen(mini.input) > 0)
 			add_history(mini.input);
+		free(mini.input);
 	}
 	ft_free_2d_arr(mini.env);
 	rl_clear_history();

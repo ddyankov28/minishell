@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 12:33:56 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:55:05 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	ft_fork_for_externals(t_mini *mini)
 		else
 		{
 			waitpid(pid, &status, 0);
-			//printf("%d", status);
 			ft_check_status(mini, status);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/13 12:25:26 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:59:30 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	ft_check_if_external(t_mini *mini)
 		i++;
 	}
 	ft_free_2d_arr(dirs);
-	mini->exit_value = 127;
+	if (mini->exit_value == 126)
+		mini->exit_value = 126;
+	else
+		mini->exit_value = 127;
 	return (1);
 }
 

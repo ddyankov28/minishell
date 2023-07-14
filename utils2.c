@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 12:27:55 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:42:33 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,15 @@ int	ft_atoi_customize(t_mini *mini, const char *str)
 void	ft_check_path(t_mini *mini, char *path_env, int sw)
 {
 	if (ft_strchr(mini->args[0], '/') != NULL)
-		execve(mini->args[0], mini->args, mini->env);
+	{
+		if (access(mini->args[0], F_OK | X_OK) == 0)
+		{
+			execve(mini->args[0], mini->args, mini->env);
+			exit(1);
+		}
+		printf("minishell: %s: Permission denied\n", mini->args[0]);
+		exit(126);
+	}
 	else
 	{
 		if (!path_env && sw == 0)
@@ -99,6 +107,4 @@ void	ft_check_status(t_mini *mini, int status)
 	{
 		mini->exit_value = WEXITSTATUS(status);
 	}
-	//printf("%d\n", mini->exit_value);
-
 }
