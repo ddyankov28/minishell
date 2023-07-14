@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_main.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/12 12:36:33 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:55:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
+	mini->here++;
 	if (!ft_check_mini_arg(mini->args[i + 1]))
 		return (1);
 	free(mini->args[i]);
@@ -107,6 +108,19 @@ static int	ft_redirect_left(t_mini *mini, int i)
 	return (0);
 }
 
+void	ft_count_double_left(t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	while (mini->args[i])
+	{
+		if (!ft_strcmp(mini->args[i], "<<"))
+			mini->count_heredoc++;
+		i++;
+	}
+}
+
 int	ft_check_for_redirection(t_mini *mini)
 {
 	int	i;
@@ -114,6 +128,7 @@ int	ft_check_for_redirection(t_mini *mini)
 
 	return_val = 0;
 	i = 0;
+	ft_count_double_left(mini);
 	while (mini->args[i])
 	{
 		if (!ft_strcmp(mini->args[i], "<"))
