@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/13 12:25:27 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:10:06 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	**ft_set_environment_variable(const char *name, char *value, char **env)
 		if (strncmp(env[count], name, ft_strlen(name)) == 0
 			&& env[count][ft_strlen(name)] == '=')
 		{
+			free(env[count]);
 			env[count] = ft_strdup(value);
 			return (env);
 		}
