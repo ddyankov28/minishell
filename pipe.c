@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 14:44:21 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:20:11 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 	pid_t	pid;
 
 	i = 0;
+	mini->pid_fork = malloc(sizeof(int) * mini->num_commands);
 	while (i < mini->num_commands)
 	{
 		pid = fork();
-		mini->pid_fork = pid;
+		mini->pid_fork[i] = pid;
 		signal(SIGINT, SIG_IGN);
 		if (pid < 0)
 		{
@@ -63,8 +64,8 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 {
 	mini->input = mini->commands[i];
 	ft_split_input(mini);
-	ft_check_for_redirection(mini);
 	ft_dup_child(mini, i, mini->num_commands, pipe_fds);
+	ft_check_for_redirection(mini);
 	ft_close_pipes(mini->num_commands, pipe_fds);
 	free(pipe_fds);
 	ft_execute_built_in_command(mini, mini->args);
@@ -77,20 +78,21 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	int	status;
 
 	i = 0;
-	while (i < num_commands - 1)
+	while (i < num_commands)
 	{
-		wait(NULL);
+		waitpid(mini->pid_fork[i], &status, 0);
+		if (status == 256 || status == 4)
+		mini->exit_value = 127;
+		else if (status == 2)
+		{
+			if (i == 0)
+			{
+				write(1, "\n", 1);
+				mini->exit_value = 130;
+			}
+		}
+		else
+			mini->exit_value = WEXITSTATUS(status);
 		i++;
 	}
-	waitpid(mini->pid_fork, &status, 0);
-	printf("%d", status);
-	if (status == 256 || status == 4)
-		mini->exit_value = 127;
-	else if (status == 2)
-	{
-		write(1, "\n", 1);
-		mini->exit_value = 130;
-	}
-	else
-		mini->exit_value = WEXITSTATUS(status);
 }

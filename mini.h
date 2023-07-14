@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 14:55:20 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:11:39 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ typedef struct s_mini
 	int				num_commands;
 	int				new_line;
 	int				exit_value;
-	pid_t			pid_fork;
 	int				count_heredoc;
 	int				here;
+	pid_t				*pid_fork;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
