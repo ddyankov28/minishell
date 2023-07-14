@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 13:42:33 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:44:24 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,5 @@ void	ft_check_status(t_mini *mini, int status)
 		mini->exit_value = 131;
 	}
 	else
-	{
 		mini->exit_value = WEXITSTATUS(status);
-	}
 }

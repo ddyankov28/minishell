@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/12 13:08:00 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:44:21 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_execute_pipes(t_mini *mini)
 	ft_create_pipes(mini, mini->pipe_fds);
 	ft_fork_for_commands(mini, mini->pipe_fds);
 	ft_close_pipes(mini->num_commands, mini->pipe_fds);
-	ft_wait_for_processes(mini->num_commands);
+	ft_wait_for_processes(mini, mini->num_commands);
 	free(mini->pipe_fds);
 	ft_free_2d_arr(mini->commands);
 	return (0);
@@ -43,6 +43,7 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 	while (i < mini->num_commands)
 	{
 		pid = fork();
+		mini->pid_fork = pid;
 		signal(SIGINT, SIG_IGN);
 		if (pid < 0)
 		{
@@ -70,14 +71,26 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 	ft_search_and_execute(mini, 1);
 }
 
-void	ft_wait_for_processes(int num_commands)
+void	ft_wait_for_processes(t_mini *mini, int num_commands)
 {
 	int	i;
+	int	status;
 
 	i = 0;
-	while (i < num_commands)
+	while (i < num_commands - 1)
 	{
 		wait(NULL);
 		i++;
 	}
+	waitpid(mini->pid_fork, &status, 0);
+	printf("%d", status);
+	if (status == 256 || status == 4)
+		mini->exit_value = 127;
+	else if (status == 2)
+	{
+		write(1, "\n", 1);
+		mini->exit_value = 130;
+	}
+	else
+		mini->exit_value = WEXITSTATUS(status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 11:49:59 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:10:59 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_mini
 	int				expecting_heredoc;
 	int				new_line;
 	int				exit_value;
+	pid_t			pid_fork;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -164,7 +165,7 @@ int					ft_execute_pipes(t_mini *mini);
 void				ft_fork_for_commands(t_mini *mini, int *pipe_fds);
 void				ft_fork_for_commands_extension(t_mini *mini, int i,
 						int *pipe_fds);
-void				ft_wait_for_processes(int num_commands);
+void				ft_wait_for_processes(t_mini *mini, int num_commands);
 
 //redirections_double_left_utils.c
 int					ft_read_input_redirection(t_mini *mini, char *delimiter,
