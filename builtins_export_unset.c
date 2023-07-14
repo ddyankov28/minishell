@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 13:10:06 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/14 17:28:31 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_handle_export(t_mini *mini)
 	if (mini->args[1] != NULL)
 	{
 		name = ft_name(mini);
-		if (mini->export_sw != 0)
+		if (mini->export_sw != 0 || ft_isdigit(mini->args[1][0]))
 		{
 			ft_printf("minishell: export: %s: not a valid identifier\n",
 				mini->args[1]);

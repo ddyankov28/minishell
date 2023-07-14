@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 14:55:37 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:39:54 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-static void	ft_print_herdoc(char **heredoc)
+static void	ft_print_herdoc(char **heredoc, t_mini *mini)
 {
 	int	i;
+	char *env_value = NULL;
 
 	i = 0;
 	while (heredoc[i])
 	{
-		ft_putstr_fd(heredoc[i], 1);
+		if (heredoc[i][0] == '$')
+		{
+			env_value = ft_get_value_from_env(mini->env, ft_substr(heredoc[i], 1 , ft_strlen(heredoc[i])));
+			ft_putstr_fd(env_value, 1);
+		}
+		else
+			ft_putstr_fd(heredoc[i], 1);	
 		ft_putstr_fd("\n", 1);
 		i++;
 	}
@@ -64,8 +71,9 @@ int	ft_read_input_redirection(t_mini *mini, char *delimiter, int i)
 	ft_heredoc_loop(mini, input_line, delimiter);
 	if (i == 0)
 		return (1);
+	
 	if (mini->here == mini->count_heredoc)
-		ft_print_herdoc(mini->heredoc);
+		ft_print_herdoc(mini->heredoc, mini);
 	ft_free_2d_arr(mini->heredoc);
 	return (0);
 }
