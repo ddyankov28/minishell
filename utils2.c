@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/13 12:26:09 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:27:55 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,17 @@ void	ft_check_status(t_mini *mini, int status)
 	{
 		mini->exit_value = 130;
 		g_exit_status = 130;
+		write(1, "\n", 1);
+	}
+	if (status == 131)
+	{
+		write(1, "Quit (core dumped)\n", 20);
+		mini->exit_value = 131;
 	}
 	else
+	{
 		mini->exit_value = WEXITSTATUS(status);
+	}
+	//printf("%d\n", mini->exit_value);
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/13 14:00:59 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:41:45 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void ft_oldpwd(t_mini *mini)
     oldpwd = ft_get_value_from_env(mini->env, "OLDPWD");
     if (!oldpwd)
     {
-        printf("insert error message\n");
+        printf("minishell: cd: HOME not set\n");
         return ;
     }
     if (chdir(oldpwd) == 0)
@@ -54,7 +54,7 @@ static void ft_home(t_mini *mini)
     home_dir = ft_get_value_from_env(mini->env, "HOME");
     if (!home_dir)
     {
-        printf("insert error message\n");
+        printf("minishell: cd: HOME not set\n");
         return ;
     }
     if (chdir(home_dir) == 0)

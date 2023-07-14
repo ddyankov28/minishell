@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/13 12:25:27 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:26:04 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_split_double(t_mini *mini, char *args, int i)
 	if (args[i] == '?')
 	{
 		ft_printf("%d", mini->exit_value);
+		mini->exit_value = 0;
 		i++;
 	}
 	else
@@ -85,6 +86,7 @@ int	ft_split_unclosed(t_mini *mini, char *args, int i)
 	if (args[i] == '?')
 	{
 		ft_printf("%d", mini->exit_value);
+		mini->exit_value = 0;
 		i++;
 	}
 	else

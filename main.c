@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/13 13:08:58 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:37:20 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,23 @@ static void	ft_check_args(int ac, char **av)
 	}
 }
 
-static void	ft_readline(t_mini *mini)
-{
-	if (g_exit_status != 130)
-		mini->input = readline("~$ ");
-	else
-		mini->input = readline("\n~$ ");
-	g_exit_status = 0;
-}
-
 int	ft_check_input(t_mini *mini, char *input)
 {
+	int i;
+
+	i = 0;
 	if (ft_strcmp(input, "\"\"") == 0)
 	{
 		printf("'': command not found\n");
 		mini->exit_value = 127;
 		return (1);
+	}
+	else if (input[i] == ' ')
+	{
+		while (input[i] == ' ' && input[i])
+			i++;
+		if (input[i] == '\0')
+			return (1);
 	}
 	return (0);
 }
@@ -75,8 +76,9 @@ int	main(int argc, char **argv)
 	{
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, SIG_IGN);
+		
 		ft_init_struct(&mini);
-		ft_readline(&mini);
+		mini.input = readline("~$ ");
 		ft_ctrl_d(&mini);
 		if (mini.input[0] != '\0' && ft_check_input(&mini, mini.input) == 0)
 		{

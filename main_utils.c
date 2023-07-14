@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/13 12:25:56 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:33:56 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	ft_fork_for_externals(t_mini *mini)
 
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	{
 		if (pid == -1)
 		{
@@ -59,6 +60,7 @@ static void	ft_fork_for_externals(t_mini *mini)
 		}
 		else if (!pid)
 		{
+			signal(SIGQUIT, handle_sigquit);
 			signal(SIGINT, SIG_DFL);
 			ft_search_and_execute(mini, 0);
 			exit(0);
@@ -66,6 +68,7 @@ static void	ft_fork_for_externals(t_mini *mini)
 		else
 		{
 			waitpid(pid, &status, 0);
+			//printf("%d", status);
 			ft_check_status(mini, status);
 		}
 	}
@@ -88,6 +91,11 @@ static void	ft_read_input(t_mini *mini)
 
 void	ft_handle_input(t_mini *mini)
 {
+	if (g_exit_status == 130)
+		{
+			mini->exit_value = 130;
+			g_exit_status = 0;
+		}
 	if (!mini->args[0])
 	{
 		free(mini->args);
