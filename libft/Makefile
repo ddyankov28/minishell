@@ -6,7 +6,7 @@
 #    By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 13:14:30 by ddyankov          #+#    #+#              #
-#    Updated: 2023/06/28 17:06:49 by ddyankov         ###   ########.fr        #
+#    Updated: 2023/07/16 17:18:11 by ddyankov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = ft_atoi.c \
 	ft_isascii.c \
 	ft_isdigit.c \
 	ft_isprint.c \
+	ft_isspace.c \
 	ft_itoa.c \
 	ft_len_2d_arr.c \
 	ft_lstadd_back.c \
@@ -54,6 +55,7 @@ SRC = ft_atoi.c \
 	ft_strchr.c \
 	ft_strcmp.c \
 	ft_strdup.c \
+	ft_strncpy.c \
 	ft_striteri.c \
 	ft_strjoin.c \
 	ft_strlcat.c \

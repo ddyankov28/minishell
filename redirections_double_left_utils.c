@@ -6,28 +6,74 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 18:39:54 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:20:37 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-static void	ft_print_herdoc(char **heredoc, t_mini *mini)
+char*	ft_replace_line(char* s, t_mini *mini) 
+{
+    int start = 0;
+    int end = 0;
+    char* value = NULL;
+    char* output = malloc(1024);
+	int i = 0;
+	int output_len = 0;
+    
+    while (s[i]) 
+	{
+        if (s[i] == '$') 
+		{
+            start = i + 1;
+            end = i + 1;
+            while (s[end])
+			{
+				if (s[end] == '$' || ft_isspace(s[end]))
+					break ;
+                end++;
+				i++;
+			}
+            int var_name_len = end - start;
+            char* var_name = ft_substr(s, start, var_name_len);
+            value = ft_get_value_from_env(mini->env, var_name);
+            if (value) 
+			{
+                ft_strncpy(output + output_len, value, ft_strlen(value));
+                output_len += ft_strlen(value);
+            	free(var_name);
+            }
+			else
+			{
+				free(var_name);
+				break ;
+			}
+        }
+		else if (s[i] == '\0')
+			break ;
+		else 
+		{
+            output[output_len] = s[i];
+            output_len++;
+        }
+		i++;
+    }
+    output[output_len] = '\0';
+    return output;
+}
+
+static void	ft_print_herdoc(char **hdoc, t_mini *mini)
 {
 	int	i;
-	char *env_value = NULL;
+	char	*output;
 
+	output = NULL;
 	i = 0;
-	while (heredoc[i])
+	while (hdoc[i])
 	{
-		if (heredoc[i][0] == '$')
-		{
-			env_value = ft_get_value_from_env(mini->env, ft_substr(heredoc[i], 1 , ft_strlen(heredoc[i])));
-			ft_putstr_fd(env_value, 1);
-		}
-		else
-			ft_putstr_fd(heredoc[i], 1);	
-		ft_putstr_fd("\n", 1);
+		output = ft_replace_line(hdoc[i], mini);
+		ft_putendl_fd(output, STDOUT_FILENO);
+		free(output);
 		i++;
 	}
 }
@@ -71,7 +117,6 @@ int	ft_read_input_redirection(t_mini *mini, char *delimiter, int i)
 	ft_heredoc_loop(mini, input_line, delimiter);
 	if (i == 0)
 		return (1);
-	
 	if (mini->here == mini->count_heredoc)
 		ft_print_herdoc(mini->heredoc, mini);
 	ft_free_2d_arr(mini->heredoc);

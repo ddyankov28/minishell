@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 12:57:03 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/16 13:35:09 by ddyankov         ###   ########.fr       */
+/*   Created: 2023/07/16 13:38:38 by ddyankov          #+#    #+#             */
+/*   Updated: 2023/07/16 13:39:40 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlcpy(char *dst, const char *src, int size)
+char	*ft_strncpy(char *dest, char *src, int n)
 {
-	int	counter;
-	int	index;
+	int	i;
 
-	counter = 0;
-	while (src[counter] != '\0')
-		counter++;
-	if (size == 0)
-		return (counter);
-	index = 0;
-	while (index < (size - 1) && src[index] != '\0')
+	i = 0;
+	while (i < n && src[i])
 	{
-		dst[index] = src[index];
-		index++;
+		dest[i] = src[i];
+		i++;
 	}
-	dst[index] = '\0';
-	return (counter);
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

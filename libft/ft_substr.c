@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:33:54 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/28 17:53:07 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/16 14:45:37 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ char	*ft_substr(char const *s, int start, int len)
 		subs[a] = '\0';
 		return (subs);
 	}
-	return (0);
+	return (NULL);
 }

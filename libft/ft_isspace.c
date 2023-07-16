@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 12:57:03 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/16 13:35:09 by ddyankov         ###   ########.fr       */
+/*   Created: 2023/07/16 17:16:47 by ddyankov          #+#    #+#             */
+/*   Updated: 2023/07/16 17:17:19 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlcpy(char *dst, const char *src, int size)
+int ft_isspace(int c) 
 {
-	int	counter;
-	int	index;
-
-	counter = 0;
-	while (src[counter] != '\0')
-		counter++;
-	if (size == 0)
-		return (counter);
-	index = 0;
-	while (index < (size - 1) && src[index] != '\0')
-	{
-		dst[index] = src[index];
-		index++;
-	}
-	dst[index] = '\0';
-	return (counter);
+    if (c == ' ' || c == '\t' || c == '\n' 
+        || c == '\r' || c == '\v' || c == '\f') 
+        return 1;
+    return 0;
 }

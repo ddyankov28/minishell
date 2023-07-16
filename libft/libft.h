@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:24:36 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/06/28 17:53:50 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:17:55 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int					ft_isascii(int a);
 int					ft_isprint(int a);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int					ft_isspace(int c);
 
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -54,7 +55,9 @@ int					ft_check_mini_arg(char *s);
 int					ft_get_len_if_double(char *str, int x);
 int					ft_get_len_if_single(char *str, int x);
 int					ft_get_len_for_char(char *str, char c, int i);
+int					ft_strlcpy(char *dst, const char *src, int size);
 
+char				*ft_strncpy(char *dest, char *src, int n);
 char				*ft_strnstr(const char *big, const char *little, int len);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
@@ -69,7 +72,6 @@ char				*get_next_line(int fd);
 char				*ft_strcat(char *dest, const char *src);
 char				*ft_get_value_from_env(char **arr, char *varname);
 
-size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 
 void				*ft_memchr(const void *s, int c, size_t n);
