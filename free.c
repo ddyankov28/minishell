@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:52 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/11 12:37:43 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:06:38 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_free_input(t_mini *mini)
 	}
 	free(mini->args);
 	free(mini->space_flag);
+	if (mini->here > 0)
+		ft_free_2d_arr(mini->exec_arr);
 	mini->index = 0;
 }
 

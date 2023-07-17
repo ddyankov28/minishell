@@ -3,37 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 12:51:38 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:39:20 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
 unsigned int	g_exit_status;
-
-void	sigint_handler(int sig)
-{
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_exit_status = 130;
-}
-
-static void	ft_ctrl_d(t_mini *mini)
-{
-	if (!mini->input)
-	{
-		printf("exit\n");
-		free(mini->input);
-		ft_free_2d_arr(mini->env);
-		exit(0);
-	}
-}
 
 static void	ft_check_args(int ac, char **av)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 11:40:31 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:09:03 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ static void	ft_print_herdoc(char **hdoc, t_mini *mini)
 	{
 		mini->hdoc_output[i] = ft_replace_line(hdoc[i], mini);
 		ft_putendl_fd(mini->hdoc_output[i], mini->input_fd);
-		//free(output);
+		free(mini->hdoc_output[i]);
 		i++;
 	}
-	mini->hdoc_output[i] = NULL;
+	free(mini->hdoc_output);
 }
 
 static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)

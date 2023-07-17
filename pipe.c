@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 12:54:02 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:25:19 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+void	ft_check_for_double_left_redirection(t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	while (mini->commands[i])
+	{
+		if(ft_strnstr(mini->commands[i], "<<", 100) != NULL)
+			mini->red_left++;
+		i++;
+	}
+}
 
 int	ft_execute_pipes(t_mini *mini)
 {
@@ -23,11 +36,13 @@ int	ft_execute_pipes(t_mini *mini)
 		ft_free_malloc(mini);
 	}
 	ft_create_pipes(mini, mini->pipe_fds);
+	ft_check_for_double_left_redirection(mini);
 	ft_fork_for_commands(mini, mini->pipe_fds);
 	ft_close_pipes(mini->num_commands, mini->pipe_fds);
 	ft_wait_for_processes(mini, mini->num_commands);
 	free(mini->pipe_fds);
 	ft_free_2d_arr(mini->commands);
+	free(mini->pid_fork);
 	return (0);
 }
 
@@ -37,6 +52,10 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 
 	i = 0;
 	mini->pid_fork = malloc(sizeof(int) * mini->num_commands);
+	{
+		free(mini->pid_fork);
+		ft_free_malloc(mini);
+	}
 	while (i < mini->num_commands)
 	{
 		mini->pid_fork[i] = fork();
@@ -57,6 +76,8 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 
 void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 {
+	char *path;
+
 	mini->input = mini->commands[i];
 	ft_split_input(mini);
 	ft_check_for_redirection(mini);
@@ -65,14 +86,10 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 	free(pipe_fds);
 	if (mini->here > 0)
 	{
-		// int i;
-		// i = 0;
-		// while (mini->hdoc_output[i])
-		// {
-		// 	ft_putendl_fd(mini->hdoc_output[i], 1);
-		// 	i++;
-		// }
-		execve("/bin/cat", mini->exec_arr, mini->env);
+		path = ft_get_path(mini);
+		if (path == NULL)
+			exit(1);
+		execve(path, mini->exec_arr, mini->env);
 		exit(0);
 	}
 	ft_execute_built_in_command(mini, mini->args);
@@ -88,7 +105,7 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	while (i < num_commands)
 	{
 		waitpid(mini->pid_fork[i], &status, 0);
-		if (mini->hdoc_output != NULL)
+		if (mini->red_left > 0)
 				unlink("/tmp/mini_here_doc_XXXXXX");
 		if (status == 256 || status == 4)
 		mini->exit_value = 127;

@@ -3,25 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_main.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 12:22:13 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:27:56 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
+char *ft_get_path(t_mini *mini)
+{
+	char *path_env;
+	char *path;
+
+	path_env = ft_get_value_from_env(mini->env, "PATH");
+	if (path_env != NULL)
+	{
+		path = ft_strjoin("/bin/", mini->args[0]);
+		return (path);
+	}
+	return (NULL);
+}
+
 void	ft_fork_redirections(t_mini *mini)
 {
 	pid_t pid;
 	int  status;
-	
+	char *path;
+
 	pid = fork();
 	if (!pid)
 	{
-		if (mini->hdoc_output[0] != NULL)
-			execve("/bin/sort", mini->exec_arr, mini->env);
+		path = ft_get_path(mini);
+		if (path == NULL)
+			exit(1);
+		execve(path, mini->exec_arr, mini->env);
 	}
 	else
 	{
@@ -33,6 +50,11 @@ void	ft_fork_redirections(t_mini *mini)
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
 	mini->exec_arr = malloc(1024 * sizeof(char *));
+	if (!mini->exec_arr)
+	{
+		free(mini->exec_arr);
+		ft_free_malloc(mini);
+	}
 	mini->exec_arr[0] = ft_strdup(mini->args[0]);
 	mini->exec_arr[1] = ft_strdup("/tmp/mini_here_doc_XXXXXX");
 	mini->exec_arr[2] = NULL;

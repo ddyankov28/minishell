@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/14 13:03:25 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:21:01 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static void ft_oldpwd(t_mini *mini, char *current_path)
         return ;
     }
     if (chdir(oldpwd) == 0)
+    {
         ft_set_oldpwd(mini, current_path);
+        ft_show_directory(mini);
+    }
     else
 		perror("cd");
 }

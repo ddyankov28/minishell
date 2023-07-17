@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 12:03:28 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:08:00 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_mini
 	int				here;
 	char			**hdoc_output;
 	char			**exec_arr;
+	int				red_left;
 	pid_t				*pid_fork;
 }					t_mini;
 
@@ -63,7 +64,6 @@ extern unsigned int	g_exit_status;
 /* main utils */
 void				ft_handle_input(t_mini *mini);
 void				ft_copy_envp(t_mini *mini);
-void				sigint_handler(int sig);
 void				ft_check_status(t_mini *mini, int status);
 
 // builtins_echo.c
@@ -175,12 +175,18 @@ int					ft_read_input_redirection(t_mini *mini, char *delimiter,
 
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
+char *ft_get_path(t_mini *mini);
 void	ft_fork_redirections(t_mini *mini);
 
 //redirections_handle_fds.c
 void				ft_apply_input_redirections(t_mini *mini);
 void				ft_restore_and_close_fds(t_mini *mini);
 int					ft_redirect_right_check(t_mini *mini);
+
+//signals.c
+void	sigint_handler(int sig);
+void	handle_sigquit(int sig);
+void	ft_ctrl_d(t_mini *mini);
 
 //split_input_for_quotes.c
 void				ft_split_double_quotes(t_mini *mini);
@@ -218,6 +224,5 @@ void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
 int					ft_atoi_customize(t_mini *mini, const char *str);
 void				ft_check_path(t_mini *mini, char *path_env, int sw);
-void				handle_sigquit(int sig);
 
 #endif

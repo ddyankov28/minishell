@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_main.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 11:45:46 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:38:40 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,4 @@ int	ft_handle_spaceflag(t_mini *mini, int j)
 			mini->space_flag[mini->index] = 0;
 	}
 	return (0);
-}
-void	handle_sigquit(int sig)
-{
-	(void)sig;
 }
