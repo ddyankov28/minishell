@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/16 17:20:37 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:44:52 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ char*	ft_replace_line(char* s, t_mini *mini)
             	free(var_name);
             }
 			else
-			{
 				free(var_name);
-				break ;
-			}
         }
 		else if (s[i] == '\0')
 			break ;
