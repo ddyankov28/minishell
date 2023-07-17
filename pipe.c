@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:25:19 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:40:17 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 
 	i = 0;
 	mini->pid_fork = malloc(sizeof(int) * mini->num_commands);
+	if (!mini->pid_fork)
 	{
 		free(mini->pid_fork);
 		ft_free_malloc(mini);

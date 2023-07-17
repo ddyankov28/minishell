@@ -6,25 +6,11 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/17 14:21:01 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:32:52 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-char* ft_get_current_path(t_mini *mini)
-{
-    char* path = malloc(sizeof(char) * 1024);
-    if (path == NULL)
-        ft_free_malloc(mini);   
-    if (getcwd(path, 1024) == NULL)
-    {
-        perror("getcwd() error");
-        free(path);
-        return NULL;
-    }
-    return (path);
-}
 
 static void ft_set_oldpwd(t_mini *mini, char *oldpwd)
 {

@@ -6,46 +6,11 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:27:56 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:34:27 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-char *ft_get_path(t_mini *mini)
-{
-	char *path_env;
-	char *path;
-
-	path_env = ft_get_value_from_env(mini->env, "PATH");
-	if (path_env != NULL)
-	{
-		path = ft_strjoin("/bin/", mini->args[0]);
-		return (path);
-	}
-	return (NULL);
-}
-
-void	ft_fork_redirections(t_mini *mini)
-{
-	pid_t pid;
-	int  status;
-	char *path;
-
-	pid = fork();
-	if (!pid)
-	{
-		path = ft_get_path(mini);
-		if (path == NULL)
-			exit(1);
-		execve(path, mini->exec_arr, mini->env);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		unlink("/tmp/mini_here_doc_XXXXXX");
-	}
-}
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
@@ -149,19 +114,6 @@ static int	ft_redirect_left(t_mini *mini, int i)
 		return (1);
 	}
 	return (0);
-}
-
-void	ft_count_double_left(t_mini *mini)
-{
-	int	i;
-
-	i = 0;
-	while (mini->args[i])
-	{
-		if (!ft_strcmp(mini->args[i], "<<"))
-			mini->count_heredoc++;
-		i++;
-	}
 }
 
 int	ft_check_for_redirection(t_mini *mini)

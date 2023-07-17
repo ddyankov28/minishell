@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:08:00 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:37:29 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,11 @@ void				ft_wait_for_processes(t_mini *mini, int num_commands);
 int					ft_read_input_redirection(t_mini *mini, char *delimiter,
 						int i);
 
+//redirections_double_left_utils2.c
+void	ft_count_double_left(t_mini *mini);
+char *ft_get_path(t_mini *mini);
+void	ft_fork_redirections(t_mini *mini);
+
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
 char *ft_get_path(t_mini *mini);
@@ -224,5 +229,6 @@ void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
 int					ft_atoi_customize(t_mini *mini, const char *str);
 void				ft_check_path(t_mini *mini, char *path_env, int sw);
+char* ft_get_current_path(t_mini *mini);
 
 #endif
