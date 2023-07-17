@@ -6,14 +6,36 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/16 13:47:14 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:22:13 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
+void	ft_fork_redirections(t_mini *mini)
+{
+	pid_t pid;
+	int  status;
+	
+	pid = fork();
+	if (!pid)
+	{
+		if (mini->hdoc_output[0] != NULL)
+			execve("/bin/sort", mini->exec_arr, mini->env);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		unlink("/tmp/mini_here_doc_XXXXXX");
+	}
+}
+
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
+	mini->exec_arr = malloc(1024 * sizeof(char *));
+	mini->exec_arr[0] = ft_strdup(mini->args[0]);
+	mini->exec_arr[1] = ft_strdup("/tmp/mini_here_doc_XXXXXX");
+	mini->exec_arr[2] = NULL;
 	mini->here++;
 	if (!ft_check_mini_arg(mini->args[i + 1]))
 		return (1);
@@ -31,7 +53,6 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 	}
 	if (ft_read_input_redirection(mini, mini->args[i + 1], i) == 1)
 		return (1);
-	unlink("/tmp/mini_here_doc_XXXXXX");
 	return (0);
 }
 

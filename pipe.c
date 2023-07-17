@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 10:09:25 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:54:02 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,18 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 	ft_dup_child(mini, i, mini->num_commands, pipe_fds);
 	ft_close_pipes(mini->num_commands, pipe_fds);
 	free(pipe_fds);
+	if (mini->here > 0)
+	{
+		// int i;
+		// i = 0;
+		// while (mini->hdoc_output[i])
+		// {
+		// 	ft_putendl_fd(mini->hdoc_output[i], 1);
+		// 	i++;
+		// }
+		execve("/bin/cat", mini->exec_arr, mini->env);
+		exit(0);
+	}
 	ft_execute_built_in_command(mini, mini->args);
 	ft_search_and_execute(mini, 1);
 }
@@ -76,6 +88,8 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	while (i < num_commands)
 	{
 		waitpid(mini->pid_fork[i], &status, 0);
+		if (mini->hdoc_output != NULL)
+				unlink("/tmp/mini_here_doc_XXXXXX");
 		if (status == 256 || status == 4)
 		mini->exit_value = 127;
 		else if (status == 2)

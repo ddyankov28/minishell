@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 10:10:31 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:04:00 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	ft_read_input(t_mini *mini)
 		return ;
 	if (!ft_check_for_redirection(mini))
 		return ;
+	ft_fork_redirections(mini);
 	if (ft_is_builtin(mini, mini->args[0]))
 		ft_execute_built_ins(mini, mini->input);
 	else

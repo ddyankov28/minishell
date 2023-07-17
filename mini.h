@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 10:10:29 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:03:28 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_mini
 	int				exit_value;
 	int				count_heredoc;
 	int				here;
+	char			**hdoc_output;
+	char			**exec_arr;
 	pid_t				*pid_fork;
 }					t_mini;
 
@@ -173,6 +175,7 @@ int					ft_read_input_redirection(t_mini *mini, char *delimiter,
 
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
+void	ft_fork_redirections(t_mini *mini);
 
 //redirections_handle_fds.c
 void				ft_apply_input_redirections(t_mini *mini);

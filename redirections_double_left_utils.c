@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 09:44:52 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:40:31 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,16 @@ char*	ft_replace_line(char* s, t_mini *mini)
 static void	ft_print_herdoc(char **hdoc, t_mini *mini)
 {
 	int	i;
-	char	*output;
-
-	output = NULL;
+	mini->hdoc_output = malloc(1024 * sizeof(char *));
 	i = 0;
 	while (hdoc[i])
 	{
-		output = ft_replace_line(hdoc[i], mini);
-		ft_putendl_fd(output, STDOUT_FILENO);
-		free(output);
+		mini->hdoc_output[i] = ft_replace_line(hdoc[i], mini);
+		ft_putendl_fd(mini->hdoc_output[i], mini->input_fd);
+		//free(output);
 		i++;
 	}
+	mini->hdoc_output[i] = NULL;
 }
 
 static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
