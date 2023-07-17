@@ -3,14 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_main.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:34:27 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:48:06 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+char *ft_get_path(t_mini *mini)
+{
+	char *path_env;
+	char *path;
+
+	path_env = ft_get_value_from_env(mini->env, "PATH");
+	if (path_env != NULL)
+	{
+		path = ft_strjoin("/bin/", mini->args[0]);
+		return (path);
+	}
+	return (NULL);
+}
+
+void	ft_fork_redirections(t_mini *mini)
+{
+	pid_t pid;
+	int  status;
+	char *path;
+
+	pid = fork();
+	if (!pid)
+	{
+		path = ft_get_path(mini);
+		if (path == NULL)
+			exit(1);
+		execve(path, mini->exec_arr, mini->env);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		unlink("/tmp/mini_here_doc_XXXXXX");
+	}
+}
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
@@ -36,10 +71,13 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 		free(mini->space_flag);
 		ft_free_2d_arr(mini->env);
 		ft_free_2d_arr(mini->args);
+		mini->exit_value = 1;
 		exit(1);
 	}
 	if (ft_read_input_redirection(mini, mini->args[i + 1], i) == 1)
 		return (1);
+	if (mini->here != mini->count_heredoc)
+		unlink("/tmp/mini_here_doc_XXXXXX");
 	return (0);
 }
 
@@ -56,6 +94,7 @@ static int	ft_double_redirect_right(t_mini *mini, int i)
 	if (mini->append_fd == -1)
 	{
 		perror("Append file error");
+		mini->exit_value = 1;
 		return (1);
 	}
 	if (ft_redirect_right_check(mini))
@@ -83,6 +122,7 @@ static int	ft_redirect_right(t_mini *mini, int i)
 	if (mini->output_fd < 0)
 	{
 		perror("open output file");
+		mini->exit_value = 1;
 		return (1);
 	}
 	if (ft_redirect_right_check(mini))
@@ -109,11 +149,25 @@ static int	ft_redirect_left(t_mini *mini, int i)
 	if (mini->input_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(mini->args[i + 1], STDERR_FILENO);
+		ft_command_not_found(mini, 0, i + 1);
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		mini->exit_value = 1;
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_count_double_left(t_mini *mini)
+{
+	int	i;
+
+	i = 0;
+	while (mini->args[i])
+	{
+		if (!ft_strcmp(mini->args[i], "<<"))
+			mini->count_heredoc++;
+		i++;
+	}
 }
 
 int	ft_check_for_redirection(t_mini *mini)

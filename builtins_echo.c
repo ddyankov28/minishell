@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:30 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/13 12:52:30 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:19:14 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_handle_echo(t_mini *mini)
 	i = 1;
 	if (!mini->args[1])
 	{
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', mini->fd);
 		return ;
 	}
 	if (ft_check_n(mini, i) == 0)
@@ -56,7 +56,7 @@ void	ft_handle_echo(t_mini *mini)
 	else
 	{
 		ft_echo(mini, mini->args, 1);
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', mini->fd);
 	}
 }
 
@@ -88,16 +88,16 @@ void	ft_echo_double(t_mini *mini, char *args, int index)
 				if (args[i + 1] == '\0' || args[i + 1] == '"'
 					|| args[i + 1] == ' ')
 				{
-					ft_putchar_fd('$', 1);
+					ft_putchar_fd('$', mini->fd);
 					i++;
 					break ;
 				}
 				i = ft_split_double(mini, args, i);
 			}
-			if (ft_check_for_end(args, i) == 1)
+			if (ft_check_for_end(mini, args, i) == 1)
 				break ;
 		}
-		ft_putchar_fd(args[i], 1);
+		ft_putchar_fd(args[i], mini->fd);
 		i++;
 	}
 	ft_write_space(mini, index);
@@ -110,7 +110,7 @@ void	ft_echo_single(t_mini *mini, char *args, int index)
 	i = 1;
 	while (args[i] != '\'')
 	{
-		ft_putchar_fd(args[i], 1);
+		ft_putchar_fd(args[i], mini->fd);
 		i++;
 	}
 	ft_write_space(mini, index);

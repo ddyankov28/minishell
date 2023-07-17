@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 17:28:31 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:52:43 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	ft_handle_export(t_mini *mini)
 	if (mini->args[1] != NULL)
 	{
 		name = ft_name(mini);
-		if (mini->export_sw != 0 || ft_isdigit(mini->args[1][0]))
+		if (mini->export_sw != 0 || ft_isdigit(mini->args[1][0])
+			|| mini->args[1][0] == '=')
 		{
-			ft_printf("minishell: export: %s: not a valid identifier\n",
-				mini->args[1]);
+			ft_printf("minishell: export: `");
+			ft_write_without_quotes(mini, mini->args[1]);
+			ft_printf("': not a valid identifier\n");
 			mini->exit_value = 1;
 			free(name);
 			return ;

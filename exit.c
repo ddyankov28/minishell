@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:52:41 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/13 12:25:25 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:17:58 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	ft_exit_error(t_mini *mini)
 	ft_write_without_quotes(mini, mini->args[1]);
 	ft_printf(": numeric argument required\n");
 	ft_free_env_input(mini);
-	exit(2);
+	if (mini->exit_flag == 1)
+		exit(2);
+	else
+		exit(mini->result);
 }
 
 static void	ft_exit_2_args(t_mini *mini)

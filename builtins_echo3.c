@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:59:13 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/27 16:43:07 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:19:24 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-int	ft_check_for_end(char *str, int i)
+int	ft_check_for_end(t_mini *mini, char *str, int i)
 {
 	if (str[i + 1] == '\0' || str[i + 1] == '"')
 	{
 		if (str[i] == '\'')
 		{
-			ft_putchar_fd('\'', 1);
+			ft_putchar_fd('\'', mini->fd);
 		}
 		return (1);
 	}
@@ -35,7 +35,7 @@ int	ft_echo_unclosed_loop(t_mini *mini, char *args, int i)
 			{
 				if (args[i + 1] == '\0')
 				{
-					ft_putchar_fd('$', 1);
+					ft_putchar_fd('$', mini->fd);
 					i++;
 					break ;
 				}
@@ -46,7 +46,7 @@ int	ft_echo_unclosed_loop(t_mini *mini, char *args, int i)
 		}
 		else
 		{
-			ft_putchar_fd(args[i], 1);
+			ft_putchar_fd(args[i], mini->fd);
 			i++;
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:40:17 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:39:29 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 
 	mini->input = mini->commands[i];
 	ft_split_input(mini);
-	ft_check_for_redirection(mini);
+	if (!ft_check_for_redirection(mini))
+		exit(1);
 	ft_dup_child(mini, i, mini->num_commands, pipe_fds);
 	ft_close_pipes(mini->num_commands, pipe_fds);
 	free(pipe_fds);
@@ -106,6 +107,7 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	while (i < num_commands)
 	{
 		waitpid(mini->pid_fork[i], &status, 0);
+		printf("%d\n", status);
 		if (mini->red_left > 0)
 				unlink("/tmp/mini_here_doc_XXXXXX");
 		if (status == 256 || status == 4)

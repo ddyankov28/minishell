@@ -6,7 +6,7 @@
 #    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/07/17 15:35:31 by vstockma         ###   ########.fr        #
+#    Updated: 2023/07/17 14:53:53 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,12 @@ SRC = main.c main_utils.c\
 	pipe.c pipe_utils.c pipe_split.c pipe_commands.c\
 	redirections_main.c\
 	redirections_double_left_utils.c redirections_handle_fds.c\
-	redirections_double_left_utils2.c\
 	execute_external.c \
 	split_input_main.c split_input_for_space_pipes_red.c split_input_for_quotes.c\
 	split_input_utils.c\
 	free.c\
 	modifying_quotes.c\
-	utils.c utils2.c utils3.c\
+	utils.c utils2.c\
 	signals.c\
 
 OBJS = $(SRC:.c=.o)

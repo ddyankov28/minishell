@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 15:37:29 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:19:35 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_mini
 	char			**exec_arr;
 	int				red_left;
 	pid_t				*pid_fork;
+	int			result;
+	int				fd;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -83,7 +85,7 @@ int					ft_envval_unclosed(t_mini *mini, char *args, char *str,
 						int i);
 
 //builtins_echo3.c
-int					ft_check_for_end(char *str, int i);
+int					ft_check_for_end(t_mini *mini, char *str, int i);
 int					ft_echo_unclosed_loop(t_mini *mini, char *args, int i);
 
 //builtins_main.c
@@ -173,11 +175,6 @@ void				ft_wait_for_processes(t_mini *mini, int num_commands);
 int					ft_read_input_redirection(t_mini *mini, char *delimiter,
 						int i);
 
-//redirections_double_left_utils2.c
-void	ft_count_double_left(t_mini *mini);
-char *ft_get_path(t_mini *mini);
-void	ft_fork_redirections(t_mini *mini);
-
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
 char *ft_get_path(t_mini *mini);
@@ -229,6 +226,5 @@ void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
 int					ft_atoi_customize(t_mini *mini, const char *str);
 void				ft_check_path(t_mini *mini, char *path_env, int sw);
-char* ft_get_current_path(t_mini *mini);
 
 #endif

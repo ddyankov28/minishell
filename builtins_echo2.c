@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 12:26:04 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:19:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_envval_doublequote(t_mini *mini, char *args, char *str, int i)
 		if (args[i] >= '0' && args[i] <= '9' && counter == 1)
 		{
 			if (args[i + 1] == '\0' || args[i + 1] == '"')
-				ft_putchar_fd(args[i], 1);
+				ft_putchar_fd(args[i], mini->fd);
 			break ;
 		}
 	}
@@ -112,7 +112,7 @@ int	ft_envval_unclosed(t_mini *mini, char *args, char *str, int i)
 		if (args[i] >= '0' && args[i] <= '9' && counter == 1)
 		{
 			if (args[i + 1] == '\0')
-				ft_putchar_fd(args[i], 1);
+				ft_putchar_fd(args[i], mini->fd);
 			break ;
 		}
 	}

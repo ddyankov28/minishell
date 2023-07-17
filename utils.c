@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:16 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 15:08:11 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:15:58 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_init_struct(t_mini *mini)
 	mini->count_heredoc = 0;
 	mini->here = 0;
 	mini->red_left = 0;
+	mini->result = 0;
+	mini->fd = 1;
 }
 
 void	ft_skip_spaces(t_mini *mini, char *str)
