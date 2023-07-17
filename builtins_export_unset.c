@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 15:52:43 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:21:59 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_handle_export(t_mini *mini)
 		}
 		if (name != NULL && mini->value != NULL)
 		{
-			mini->env = ft_set_environment_variable(name, mini->value,
-					mini->env);
+			mini->env = ft_set_env_var(name, mini->value,
+					mini->env, mini);
 			free(mini->value);
 			free(name);
 		}
@@ -41,7 +41,16 @@ void	ft_handle_export(t_mini *mini)
 		ft_show_environment(mini);
 }
 
-char	**ft_set_environment_variable(const char *name, char *value, char **env)
+static void	ft_check_malloc(char **modified_env, t_mini *mini)
+{
+	if (!modified_env)
+	{
+		free(modified_env);
+		ft_free_malloc(mini);
+	}
+}
+
+char	**ft_set_env_var(char *name, char *value, char **env, t_mini *mini)
 {
 	int		count;
 	char	**modified_env;
@@ -59,11 +68,7 @@ char	**ft_set_environment_variable(const char *name, char *value, char **env)
 		count++;
 	}
 	modified_env = (char **)ft_calloc((count + 2), sizeof(char *));
-	if (modified_env == NULL)
-	{
-		free(modified_env);
-		return (NULL);
-	}
+	ft_check_malloc(modified_env, mini);
 	ft_env(env, modified_env);
 	ft_free_2d_arr(env);
 	modified_env[count] = ft_strdup(value);

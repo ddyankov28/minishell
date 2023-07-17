@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 14:39:20 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:38:59 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_check_args(int ac, char **av)
 
 int	ft_check_input(t_mini *mini, char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_strcmp(input, "\"\"") == 0)
@@ -55,7 +55,6 @@ int	main(int argc, char **argv)
 	{
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, SIG_IGN);
-		
 		ft_init_struct(&mini);
 		mini.input = readline("~$ ");
 		ft_ctrl_d(&mini);

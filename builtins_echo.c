@@ -6,34 +6,11 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:30 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 17:19:14 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:37:44 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-int	ft_check_n(t_mini *mini, int j)
-{
-	int	i;
-
-	i = 0;
-	if (mini->args[j][i] == '"')
-		i++;
-	if (mini->args[j][i] != '-')
-		return (1);
-	i++;
-	if (mini->args[j][i] == '\0')
-		return (1);
-	while (mini->args[j][i] && mini->args[j][i] != '"')
-	{
-		if (mini->args[j][i] != 'n')
-			return (1);
-		i++;
-	}
-	if (mini->space_flag[j] == 0)
-		return (1);
-	return (0);
-}
 
 void	ft_handle_echo(t_mini *mini)
 {

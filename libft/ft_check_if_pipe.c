@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:57:37 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 18:55:46 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 20:59:48 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check_if_pipe(char **arr)
 
 	count = 0;
 	i = 0;
-	if (arr[0][0] == '|')	
+	if (arr[0][0] == '|')
 		return (2);
 	while (arr[i])
 	{

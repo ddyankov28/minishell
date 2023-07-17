@@ -3,65 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 14:09:03 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:36:48 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-char*	ft_replace_line(char* s, t_mini *mini) 
+static int	ft_after_dollar(t_mini *mini, int i, char *s, char *output)
 {
-    int start = 0;
-    int end = 0;
-    char* value = NULL;
-    char* output = malloc(1024);
-	int i = 0;
-	int output_len = 0;
-    
-    while (s[i]) 
+	char	*var_name;
+	char	*value;
+	int		start;
+	int		end;
+
+	start = i + 1;
+	end = i + 1;
+	while (s[end])
 	{
-        if (s[i] == '$') 
-		{
-            start = i + 1;
-            end = i + 1;
-            while (s[end])
-			{
-				if (s[end] == '$' || ft_isspace(s[end]))
-					break ;
-                end++;
-				i++;
-			}
-            int var_name_len = end - start;
-            char* var_name = ft_substr(s, start, var_name_len);
-            value = ft_get_value_from_env(mini->env, var_name);
-            if (value) 
-			{
-                ft_strncpy(output + output_len, value, ft_strlen(value));
-                output_len += ft_strlen(value);
-            	free(var_name);
-            }
-			else
-				free(var_name);
-        }
+		if (s[end] == '$' || ft_isspace(s[end]))
+			break ;
+		end++;
+		i++;
+	}
+	var_name = ft_substr(s, start, end - start);
+	value = ft_get_value_from_env(mini->env, var_name);
+	if (value)
+	{
+		ft_strncpy(output + mini->output_len, value, ft_strlen(value));
+		mini->output_len += ft_strlen(value);
+		free(var_name);
+	}
+	else
+		free(var_name);
+	return (i);
+}
+
+char	*ft_replace_line(char *s, t_mini *mini)
+{
+	char	*output;
+	int		i;
+
+	i = 0;
+	output = malloc(1024 * sizeof(char));
+	if (!output)
+		ft_free_malloc(mini);
+	while (s[i])
+	{
+		if (s[i] == '$')
+			i = ft_after_dollar(mini, i, s, output);
 		else if (s[i] == '\0')
 			break ;
-		else 
+		else
 		{
-            output[output_len] = s[i];
-            output_len++;
-        }
+			output[mini->output_len] = s[i];
+			mini->output_len++;
+		}
 		i++;
-    }
-    output[output_len] = '\0';
-    return output;
+	}
+	output[mini->output_len] = '\0';
+	return (output);
 }
 
 static void	ft_print_herdoc(char **hdoc, t_mini *mini)
 {
 	int	i;
+
 	mini->hdoc_output = malloc(1024 * sizeof(char *));
 	i = 0;
 	while (hdoc[i])
@@ -108,7 +117,6 @@ int	ft_read_input_redirection(t_mini *mini, char *delimiter, int i)
 	{
 		printf("Heredoc malloc failed\n");
 		ft_free_malloc(mini);
-		return (1);
 	}
 	ft_heredoc_loop(mini, input_line, delimiter);
 	if (i == 0)

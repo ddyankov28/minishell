@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 17:39:29 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:38:45 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_check_for_double_left_redirection(t_mini *mini)
 	i = 0;
 	while (mini->commands[i])
 	{
-		if(ft_strnstr(mini->commands[i], "<<", 100) != NULL)
+		if (ft_strnstr(mini->commands[i], "<<", 100) != NULL)
 			mini->red_left++;
 		i++;
 	}
@@ -48,7 +48,7 @@ int	ft_execute_pipes(t_mini *mini)
 
 void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	mini->pid_fork = malloc(sizeof(int) * mini->num_commands);
@@ -77,7 +77,7 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 
 void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 {
-	char *path;
+	char	*path;
 
 	mini->input = mini->commands[i];
 	ft_split_input(mini);
@@ -107,11 +107,10 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	while (i < num_commands)
 	{
 		waitpid(mini->pid_fork[i], &status, 0);
-		printf("%d\n", status);
 		if (mini->red_left > 0)
-				unlink("/tmp/mini_here_doc_XXXXXX");
+			unlink("/tmp/mini_here_doc_XXXXXX");
 		if (status == 256 || status == 4)
-		mini->exit_value = 127;
+			mini->exit_value = 127;
 		else if (status == 2)
 		{
 			if (i == 0)
