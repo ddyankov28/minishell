@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 16:38:19 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:09:25 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_execute_pipes(t_mini *mini)
 {
-	if ((!ft_strcmp(mini->args[0], "cat") && !mini->args[1])
-		|| (!ft_strcmp(mini->args[0], "grep") && mini->args[1]))
-		mini->new_line = 1;
 	ft_split_into_commands(mini);
 	mini->num_commands = ft_len_2d_arr(mini->commands);
 	mini->pipe_fds = malloc(sizeof(int) * (2 * mini->num_commands));

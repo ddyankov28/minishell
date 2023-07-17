@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/14 13:55:05 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:10:31 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,6 @@ void	ft_copy_envp(t_mini *mini)
 		i++;
 	}
 	mini->env[i] = NULL;
-	mini->new_line = 0;
-}
-
-static void	ft_check_command(t_mini *mini)
-{
-	if ((!ft_strcmp(mini->args[0], "cat") && !mini->args[1])
-		|| (!ft_strcmp(mini->args[0], "grep") && mini->args[1]))
-		mini->new_line = 1;
 }
 
 static void	ft_fork_for_externals(t_mini *mini)
@@ -77,7 +69,6 @@ static void	ft_read_input(t_mini *mini)
 {
 	if (!mini->args[0])
 		return ;
-	ft_check_command(mini);
 	if (!ft_check_for_redirection(mini))
 		return ;
 	if (ft_is_builtin(mini, mini->args[0]))
