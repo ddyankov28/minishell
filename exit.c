@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:52:41 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 16:17:58 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:54:10 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_exit_2_args(t_mini *mini)
 	{
 		printf("minishell: exit: too many arguments\n");
 		ft_free_env_input(mini);
-		exit(1);
+		exit(2);
 	}
 }
 

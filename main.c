@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 11:39:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:51:55 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,34 @@ int	ft_check_input(t_mini *mini, char *input)
 	return (0);
 }
 
+static void	ft_increase_shllvl(t_mini *mini)
+{
+	char	*shlvl_value;
+	char	*name;
+	char	*new_shl;
+	int		value;
+
+	name = "SHLVL";
+	shlvl_value = ft_get_value_from_env(mini->env, "SHLVL");
+	if (!shlvl_value)
+	{
+		return ;
+	}
+	value = ft_atoi(shlvl_value);
+	value = value + 1;
+	shlvl_value = ft_itoa(value);
+	new_shl = ft_strjoin("SHLVL=", shlvl_value);
+	mini->env = ft_set_env_var(name, new_shl, mini->env, mini);
+	free(new_shl);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mini	mini;
 
 	ft_check_args(argc, argv);
 	ft_copy_envp(&mini);
+	ft_increase_shllvl(&mini);
 	mini.exit_value = 0;
 	while (1)
 	{

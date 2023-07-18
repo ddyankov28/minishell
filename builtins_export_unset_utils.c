@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:39:47 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 12:37:27 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:50:18 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ static char	*ft_name_extension(t_mini *mini, char *name)
 	i = 0;
 	while (mini->args[1][i])
 	{
+		if (mini->args[1][i] == '+' && mini->args[1][i + 1] == '=')
+		{
+			mini->plus++;
+			i++;
+		}
+		else if (mini->args[1][i] == '+')
+			mini->plus++;
 		name[i] = mini->args[1][i];
-		if ((mini->args[1][i] >= 33 && mini->args[1][i] <= 47)
-			|| (mini->args[1][i] >= 58 && mini->args[1][i] <= 60)
-			|| (mini->args[1][i] >= 62 && mini->args[1][i] <= 64)
-			|| (mini->args[1][i] >= 91 && mini->args[1][i] <= 96)
-			|| (mini->args[1][i] >= 123 && mini->args[1][i] <= 126))
-			mini->export_sw++;
+		ft_check_chars(mini, i);
 		if (mini->args[1][i] == '=')
 		{
 			mini->count++;
@@ -57,11 +59,13 @@ char	*ft_name(t_mini *mini)
 		free(name);
 		return (NULL);
 	}
-	ft_value(mini);
+	if (mini->plus > 1)
+		mini->export_sw++;
+	ft_value(mini, name);
 	return (name);
 }
 
-int	ft_value(t_mini *mini)
+int	ft_value(t_mini *mini, char *name)
 {
 	char	*tmp;
 	int		i;
@@ -71,17 +75,21 @@ int	ft_value(t_mini *mini)
 	mini->value = ft_strdup(mini->args[1]);
 	while (mini->args[i])
 	{
-		if (mini->args[i + 1] == NULL)
+		if (ft_value_return(mini, i, name) == 0)
 			return (0);
 		ft_delete_quotes_for_str(mini, i + 1);
 		if (mini->space_flag[i] == 1)
+		{
+			ft_final_value(mini, mini->value, name);
 			return (0);
+		}
 		tmp = ft_strjoin(mini->value, mini->args[i + 1]);
 		free(mini->value);
 		mini->value = ft_strdup(tmp);
 		free(tmp);
 		i++;
 	}
+	ft_final_value(mini, mini->value, name);
 	return (1);
 }
 

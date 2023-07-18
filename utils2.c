@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 22:22:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:54:48 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 {
 	if (ft_strchr(mini->args[0], '/') != NULL)
 	{
+		ft_delete_quotes_for_str(mini, 0);
 		if (access(mini->args[0], F_OK | X_OK) == 0)
 		{
 			execve(mini->args[0], mini->args, mini->env);

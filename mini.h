@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 12:37:01 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:54:18 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_mini
 	int				fd;
 	int				output_len;
 	int				redirection_count;
+	int				plus;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -108,13 +109,23 @@ void				ft_handle_export(t_mini *mini);
 
 // builtins_export_unset_utils.c
 char				*ft_name(t_mini *mini);
-int					ft_value(t_mini *mini);
+int					ft_value(t_mini *mini, char *name);
 int					ft_env(char **env, char **new_env);
+
+//builtins_export_unset_utils2.c
+void				ft_check_chars(t_mini *mini, int i);
+char				*ft_put_value(char *env_val, char *value,
+						char *final_value);
+void				ft_final_value(t_mini *mini, char *value, char *name);
+int					ft_value_return(t_mini *mini, int i, char *name);
 
 // cd.c
 void				ft_change_directory(t_mini *mini);
 char				*ft_get_current_path(t_mini *mini);
 int					ft_check_arguments_num(t_mini *mini, char *current_path);
+
+//cd_utils.c
+void				ft_set_pwd(t_mini *mini);
 
 // command_check.c
 int					ft_check_if_command(t_mini *mini);

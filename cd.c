@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/17 22:20:00 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:25:30 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_set_oldpwd(t_mini *mini, char *oldpwd)
 		mini->env = ft_set_env_var(name, value, mini->env, mini);
 		free(value);
 	}
+	ft_set_pwd(mini);
 }
 
 static void	ft_oldpwd(t_mini *mini, char *current_path)
