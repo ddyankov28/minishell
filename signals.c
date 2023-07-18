@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:38:04 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 22:13:21 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:36:42 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,29 @@ void	ft_write_space(t_mini *mini, int index)
 
 int	ft_check_n(t_mini *mini, int j)
 {
-	int	i;
+	char	pair_quote;
+	int		i;
 
+	pair_quote = '\0';
 	i = 0;
-	if (mini->args[j][i] == '"')
-		i++;
-	if (mini->args[j][i] != '-')
+	if (!mini->args[j])
 		return (1);
-	i++;
+	if (mini->args[j][i] == '"' || mini->args[j][i] == '\'')
+	{
+		pair_quote = mini->args[j][i];
+		if (ft_look_for_quote(mini, mini->args[j], i) == 0)
+			return (1);
+		i++;
+	}
+	if (mini->args[j][i++] != '-')
+		return (1);
 	if (mini->args[j][i] == '\0')
 		return (1);
-	while (mini->args[j][i] && mini->args[j][i] != '"')
+	while (mini->args[j][i] && mini->args[j][i] != pair_quote)
 	{
 		if (mini->args[j][i] != 'n')
 			return (1);
 		i++;
 	}
-	if (mini->space_flag[j] == 0)
-		return (1);
 	return (0);
 }

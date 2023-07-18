@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 22:22:10 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:37:01 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_mini
 	int				result;
 	int				fd;
 	int				output_len;
+	int				redirection_count;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -208,8 +209,7 @@ void				ft_split_redirections(t_mini *mini, char c);
 void				ft_split_pipes(t_mini *mini);
 
 // split_input_main.c
-void				ft_split_input(t_mini *mini);
-void				ft_loop_input_string(t_mini *mini);
+int					ft_split_input(t_mini *mini);
 void				ft_count_arguments(t_mini *mini);
 int					ft_handle_spaceflag(t_mini *mini, int j);
 

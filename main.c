@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 21:38:59 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:39:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	main(int argc, char **argv)
 		ft_ctrl_d(&mini);
 		if (mini.input[0] != '\0' && ft_check_input(&mini, mini.input) == 0)
 		{
-			ft_split_input(&mini);
-			ft_handle_input(&mini);
+			if (ft_split_input(&mini) != 1)
+				ft_handle_input(&mini);
 		}
 		if (ft_strlen(mini.input) > 0)
 			add_history(mini.input);

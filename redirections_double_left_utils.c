@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 22:36:48 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:25:16 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*ft_replace_line(char *s, t_mini *mini)
 	char	*output;
 	int		i;
 
+	mini->output_len = 0;
 	i = 0;
 	output = malloc(1024 * sizeof(char));
 	if (!output)

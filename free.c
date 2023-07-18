@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:52 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 14:06:38 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:30:23 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_free_when_forked(t_mini *mini)
 	ft_free_2d_arr(mini->commands);
 	ft_free_2d_arr(mini->env);
 	ft_free_input(mini);
+	free(mini->pid_fork);
 	ft_restore_and_close_fds(mini);
 	exit(EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_for_space_pipes_red.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/28 17:21:15 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:34:05 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ void	ft_split_redirections(t_mini *mini, char c)
 	{
 		while (mini->input[mini->i] == '<')
 			mini->args[mini->index][j++] = mini->input[mini->i++];
+		mini->redirection_count = j;
 	}
 	else
 	{
 		while (mini->input[mini->i] == '>')
 			mini->args[mini->index][j++] = mini->input[mini->i++];
+		mini->redirection_count = j;
 	}
 	mini->args[mini->index][j] = '\0';
 	ft_handle_spaceflag(mini, 2);

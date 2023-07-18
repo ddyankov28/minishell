@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:30 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 21:37:44 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:18:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	ft_handle_echo(t_mini *mini)
 	}
 	if (ft_check_n(mini, i) == 0)
 	{
-		while (ft_check_n(mini, i) == 0)
+		i++;
+		if (!mini->args[i])
+			return ;
+		while (ft_check_n(mini, i) == 0 && mini->args[i])
 			i++;
 		if (!mini->args[i])
 			return ;

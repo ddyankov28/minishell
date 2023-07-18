@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:16 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 21:59:09 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:33:11 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_init_struct(t_mini *mini)
 	mini->result = 0;
 	mini->fd = 1;
 	mini->output_len = 0;
+	mini->redirection_count = 0;
 }
 
 void	ft_skip_spaces(t_mini *mini, char *str)

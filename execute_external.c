@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:41 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/12 14:13:44 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 10:41:23 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_change_value(t_mini *mini)
 				"\"$?\"") == 0)
 		{
 			free(mini->args[i]);
-			mini->args[i] = ft_itoa(g_exit_status);
+			mini->args[i] = ft_itoa(mini->exit_value);
 		}
 		i++;
 	}

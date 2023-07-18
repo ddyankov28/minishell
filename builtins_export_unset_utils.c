@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:39:47 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/29 13:32:44 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:37:27 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	*ft_name(t_mini *mini)
 
 int	ft_value(t_mini *mini)
 {
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = 1;
 	ft_delete_quotes_for_str(mini, 1);
@@ -75,7 +76,10 @@ int	ft_value(t_mini *mini)
 		ft_delete_quotes_for_str(mini, i + 1);
 		if (mini->space_flag[i] == 1)
 			return (0);
-		mini->value = ft_strjoin(mini->value, mini->args[i + 1]);
+		tmp = ft_strjoin(mini->value, mini->args[i + 1]);
+		free(mini->value);
+		mini->value = ft_strdup(tmp);
+		free(tmp);
 		i++;
 	}
 	return (1);

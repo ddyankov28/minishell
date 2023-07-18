@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 21:36:28 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/18 11:48:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,13 @@ static void	ft_fork_for_externals(t_mini *mini)
 int	ft_is_dircetory(t_mini *mini)
 {
 	char	*env_value;
+	char	*to_compare;
 
-	env_value = ft_get_value_from_env(mini->env, ft_strtrim(mini->args[0],
-				"$"));
+	to_compare = ft_strtrim(mini->args[0], "$");
+	env_value = ft_get_value_from_env(mini->env, to_compare);
+	free(to_compare);
+	if (!env_value)
+		return (0);
 	if (access(env_value, F_OK | X_OK) == 0)
 	{
 		printf("minishell: %s: Is a directoy\n", env_value);
@@ -83,9 +87,9 @@ static void	ft_read_input(t_mini *mini)
 {
 	if (!mini->args[0])
 		return ;
-	if (ft_strcmp_with_quotes(mini, mini->args[0], "$PWD")
-		|| ft_strcmp_with_quotes(mini, mini->args[0], "$HOME")
-		|| ft_strcmp_with_quotes(mini, mini->args[0], "$OLDPWD"))
+	if (!ft_strcmp_with_quotes(mini, mini->args[0], "$PWD")
+		|| !ft_strcmp_with_quotes(mini, mini->args[0], "$HOME")
+		|| !ft_strcmp_with_quotes(mini, mini->args[0], "$OLDPWD"))
 	{
 		if (ft_is_dircetory(mini) == 1)
 			return ;
@@ -120,7 +124,7 @@ void	ft_handle_input(t_mini *mini)
 	else if (ft_check_if_pipe(mini->args) == 2)
 	{
 		ft_free_input(mini);
-		printf("minishell: syntax error near unexpected token '|'\n");
+		printf("minishell: syntax error near unexpected token `|'\n");
 		return ;
 	}
 	else
