@@ -102,7 +102,7 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 			exit(126);
 		}
 		else
-			ft_check_if(mini, path_env, sw);
+			ft_check_path_if(mini, path_env, sw);
 	}
 }
 
