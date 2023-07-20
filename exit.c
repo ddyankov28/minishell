@@ -6,11 +6,39 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:52:41 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 14:54:10 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:45:12 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+static int	ft_atoi_customize(t_mini *mini, const char *str)
+{
+	long	result;
+	int		sign;
+	int		i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (ft_isdigit(str[i]))
+	{
+		result = result * 10 + str[i] - 48;
+		i++;
+		if (result * sign > 2147483647)
+			mini->exit_flag = 2;
+		if (result * sign < -2147483648)
+			mini->exit_flag = 2;
+	}
+	mini->result = result * sign;
+	return (result * sign);
+}
 
 static void	ft_exit_error(t_mini *mini)
 {

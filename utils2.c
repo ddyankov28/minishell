@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/20 12:11:57 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:44:51 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,29 @@ void	ft_command_not_found(t_mini *mini, int sw, int i)
 	return ;
 }
 
-int	ft_atoi_customize(t_mini *mini, const char *str)
+static void	ft_check_path_if(t_mini *mini, char *path_env, int sw)
 {
-	long	result;
-	int		sign;
-	int		i;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (access(mini->args[0], F_OK | X_OK) == 0)
 	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
+		execve(mini->args[0], mini->args, mini->env);
+		exit(1);
 	}
-	while (ft_isdigit(str[i]))
+	if (!path_env && sw == 0)
+		ft_exit_if_no_path(mini);
+	else if (!path_env && sw == 1)
 	{
-		result = result * 10 + str[i] - 48;
-		i++;
-		if (result * sign > 2147483647)
-			mini->exit_flag = 2;
-		if (result * sign < -2147483648)
-			mini->exit_flag = 2;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(mini->args[0], 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		ft_free_when_forked(mini);
 	}
-	mini->result = result * sign;
-	return (result * sign);
+	else
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(mini->args[0], 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		exit(2);
+	}
 }
 
 void	ft_check_path(t_mini *mini, char *path_env, int sw)
@@ -105,29 +102,7 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 			exit(126);
 		}
 		else
-		{
-			if (access(mini->args[0], F_OK | X_OK) == 0)
-			{
-				execve(mini->args[0], mini->args, mini->env);
-				exit(1);
-			}
-			if (!path_env && sw == 0)
-				ft_exit_if_no_path(mini);
-			else if (!path_env && sw == 1)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(mini->args[0], 2);
-				ft_putendl_fd(": No such file or directory", 2);
-				ft_free_when_forked(mini);
-			}
-			else
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(mini->args[0], 2);
-				ft_putendl_fd(": No such file or directory", 2);
-				exit(2);
-			}
-		}
+			ft_check_if(mini, path_env, sw);
 	}
 }
 

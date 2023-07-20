@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/20 11:55:41 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:45:51 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <errno.h>
+# include <errno.h>
 
 typedef struct s_mini
 {
@@ -243,7 +243,6 @@ int					ft_delete_quotes_for_str(t_mini *mini, int i);
 int					ft_delete_quotes(t_mini *mini);
 void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
-int					ft_atoi_customize(t_mini *mini, const char *str);
 void				ft_check_path(t_mini *mini, char *path_env, int sw);
 void				ft_write_space(t_mini *mini, int index);
 
