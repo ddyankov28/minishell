@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 14:54:48 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:11:57 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,47 @@ int	ft_atoi_customize(t_mini *mini, const char *str)
 
 void	ft_check_path(t_mini *mini, char *path_env, int sw)
 {
+	int	file_exists;
+
+	file_exists = 0;
+	ft_delete_quotes_for_str(mini, 0);
+	file_exists = open(mini->args[0], O_RDONLY);
 	if (ft_strchr(mini->args[0], '/') != NULL)
 	{
-		ft_delete_quotes_for_str(mini, 0);
-		if (access(mini->args[0], F_OK | X_OK) == 0)
+		if (file_exists != -1 || errno == EACCES || errno == EPERM)
 		{
-			execve(mini->args[0], mini->args, mini->env);
-			exit(1);
+			close(file_exists);
+			if (access(mini->args[0], F_OK | X_OK) == 0)
+			{
+				execve(mini->args[0], mini->args, mini->env);
+				exit(1);
+			}
+			printf("minishell: %s: Permission denied\n", mini->args[0]);
+			exit(126);
 		}
-		printf("minishell: %s: Permission denied\n", mini->args[0]);
-		exit(126);
-	}
-	else
-	{
-		if (!path_env && sw == 0)
-			ft_exit_if_no_path(mini);
-		else if (!path_env && sw == 1)
+		else
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(mini->args[0], 2);
-			ft_putendl_fd(": No such file or directory", 2);
-			ft_free_when_forked(mini);
+			if (access(mini->args[0], F_OK | X_OK) == 0)
+			{
+				execve(mini->args[0], mini->args, mini->env);
+				exit(1);
+			}
+			if (!path_env && sw == 0)
+				ft_exit_if_no_path(mini);
+			else if (!path_env && sw == 1)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(mini->args[0], 2);
+				ft_putendl_fd(": No such file or directory", 2);
+				ft_free_when_forked(mini);
+			}
+			else
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(mini->args[0], 2);
+				ft_putendl_fd(": No such file or directory", 2);
+				exit(2);
+			}
 		}
 	}
 }

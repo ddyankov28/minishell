@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 16:51:55 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/20 10:53:06 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	ft_increase_shllvl(t_mini *mini)
 	shlvl_value = ft_itoa(value);
 	new_shl = ft_strjoin("SHLVL=", shlvl_value);
 	mini->env = ft_set_env_var(name, new_shl, mini->env, mini);
+	free(shlvl_value);
 	free(new_shl);
 }
 

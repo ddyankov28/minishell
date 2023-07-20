@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 22:21:59 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/20 10:28:29 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_handle_export(t_mini *mini)
 {
-	char	*name;
+	int	name;
 
 	if (mini->args[1] != NULL)
 	{
@@ -26,15 +26,15 @@ void	ft_handle_export(t_mini *mini)
 			ft_write_without_quotes(mini, mini->args[1]);
 			ft_printf("': not a valid identifier\n");
 			mini->exit_value = 1;
-			free(name);
+			free(mini->name);
 			return ;
 		}
-		if (name != NULL && mini->value != NULL)
+		if (name != 1 && mini->value != NULL)
 		{
-			mini->env = ft_set_env_var(name, mini->value,
+			mini->env = ft_set_env_var(mini->name, mini->value,
 					mini->env, mini);
 			free(mini->value);
-			free(name);
+			free(mini->name);
 		}
 	}
 	else

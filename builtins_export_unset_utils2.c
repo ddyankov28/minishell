@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils2.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:49:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 16:52:49 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/20 10:48:22 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ char	*ft_put_value(char *env_val, char *value, char *final_value)
 	return (final_value);
 }
 
-void	ft_final_value(t_mini *mini, char *value, char *name)
+void	ft_final_value(t_mini *mini, char *value)
 {
 	char	*final_value;
 	char	*env_val;
 
-	env_val = ft_get_value_from_env(mini->env, name);
+	env_val = ft_get_value_from_env(mini->env, mini->name);
 	final_value = malloc(ft_strlen(value) + ft_strlen(env_val) + 1);
 	if (!final_value)
 	{
@@ -69,11 +69,11 @@ void	ft_final_value(t_mini *mini, char *value, char *name)
 	free(final_value);
 }
 
-int	ft_value_return(t_mini *mini, int i, char *name)
+int	ft_value_return(t_mini *mini, int i)
 {
 	if (mini->args[i + 1] == NULL)
 	{
-		ft_final_value(mini, mini->value, name);
+		ft_final_value(mini, mini->value);
 		return (0);
 	}
 	return (1);

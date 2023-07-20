@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:39:47 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 16:50:18 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/20 10:51:02 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-static char	*ft_name_extension(t_mini *mini, char *name)
+static void	ft_name_extension(t_mini *mini)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ static char	*ft_name_extension(t_mini *mini, char *name)
 		}
 		else if (mini->args[1][i] == '+')
 			mini->plus++;
-		name[i] = mini->args[1][i];
+		mini->name[i] = mini->args[1][i];
 		ft_check_chars(mini, i);
 		if (mini->args[1][i] == '=')
 		{
@@ -36,36 +36,34 @@ static char	*ft_name_extension(t_mini *mini, char *name)
 		}
 		i++;
 	}
-	name[i] = '\0';
-	return (name);
+	mini->name[i] = '\0';
 }
 
-char	*ft_name(t_mini *mini)
+int	ft_name(t_mini *mini)
 {
-	char	*name;
-
 	if (mini->args[1] == NULL)
-		return (NULL);
-	name = malloc(sizeof(char) * ft_strlen(mini->args[1]) + 1);
-	if (!name)
+		return (1);
+	mini->name = ft_calloc(200, sizeof(char));
+	if (!mini->name)
 	{
-		free(name);
+		free(mini->name);
 		ft_free_malloc(mini);
-		return (NULL);
+		return (1);
 	}
-	name = ft_name_extension(mini, name);
+	ft_name_extension(mini);
 	if (mini->count == 0)
 	{
-		free(name);
-		return (NULL);
+		free(mini->name);
+		mini->name = NULL;
+		return (1);
 	}
 	if (mini->plus > 1)
 		mini->export_sw++;
-	ft_value(mini, name);
-	return (name);
+	ft_value(mini);
+	return (0);
 }
 
-int	ft_value(t_mini *mini, char *name)
+int	ft_value(t_mini *mini)
 {
 	char	*tmp;
 	int		i;
@@ -75,12 +73,12 @@ int	ft_value(t_mini *mini, char *name)
 	mini->value = ft_strdup(mini->args[1]);
 	while (mini->args[i])
 	{
-		if (ft_value_return(mini, i, name) == 0)
+		if (ft_value_return(mini, i) == 0)
 			return (0);
 		ft_delete_quotes_for_str(mini, i + 1);
 		if (mini->space_flag[i] == 1)
 		{
-			ft_final_value(mini, mini->value, name);
+			ft_final_value(mini, mini->value);
 			return (0);
 		}
 		tmp = ft_strjoin(mini->value, mini->args[i + 1]);
@@ -89,7 +87,7 @@ int	ft_value(t_mini *mini, char *name)
 		free(tmp);
 		i++;
 	}
-	ft_final_value(mini, mini->value, name);
+	ft_final_value(mini, mini->value);
 	return (1);
 }
 
