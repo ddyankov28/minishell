@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:59:13 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/21 11:38:52 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:26:25 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,26 @@ int	ft_check_n(t_mini *mini, int j)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_check_folder(t_mini *mini)
+{
+	char	**dirs;
+	char	*path;
+	int		i;
+
+	path = ft_get_value_from_env(mini->env, "PATH");
+	dirs = ft_split(path, ':');
+	i = 0;
+	while (dirs[i])
+	{
+		if (!ft_strncmp(dirs[i], mini->args[0], ft_strlen(mini->args[0])))
+		{
+			ft_free_2d_arr(dirs);
+			return (0);
+		}
+		i++;
+	}
+	ft_free_2d_arr(dirs);
+	return (1);
 }

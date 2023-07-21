@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/20 12:45:51 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:26:01 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int					ft_envval_unclosed(t_mini *mini, char *args, char *str,
 // builtins_echo3.c
 int					ft_check_for_end(t_mini *mini, char *str, int i);
 int					ft_echo_unclosed_loop(t_mini *mini, char *args, int i);
+int					ft_check_folder(t_mini *mini);
 
 // builtins_main.c
 void				ft_execute_built_ins(t_mini *mini, char *input);

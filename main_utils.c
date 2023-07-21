@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/21 11:23:03 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:24:38 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,16 @@ int	ft_is_dircetory(t_mini *mini)
 	char	*to_compare;
 
 	ft_delete_quotes_for_str(mini, 0);
-	to_compare = ft_strtrim(mini->args[0], "$");
-	env_value = ft_get_value_from_env(mini->env, to_compare);
-	free(to_compare);
+	if (ft_check_folder(mini) == 0)
+		env_value = mini->args[0];
+	else
+	{
+		if (mini->args[0][0] != '$')
+			return (0);
+		to_compare = ft_strtrim(mini->args[0], "$");
+		env_value = ft_get_value_from_env(mini->env, to_compare);
+		free(to_compare);
+	}
 	if (!env_value)
 		return (1);
 	if (access(env_value, F_OK | X_OK) == 0)
@@ -91,7 +98,8 @@ static void	ft_read_input(t_mini *mini)
 		return ;
 	if (!ft_strcmp_with_quotes(mini, mini->args[0], "$PWD")
 		|| !ft_strcmp_with_quotes(mini, mini->args[0], "$HOME")
-		|| !ft_strcmp_with_quotes(mini, mini->args[0], "$OLDPWD"))
+		|| !ft_strcmp_with_quotes(mini, mini->args[0], "$OLDPWD")
+		|| ft_strchr(mini->args[0], '/') != NULL)
 	{
 		if (ft_is_dircetory(mini) == 1)
 			return ;
