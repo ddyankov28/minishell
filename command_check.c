@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/14 13:59:30 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:21:57 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_check_if_external(t_mini *mini)
 	ft_free_2d_arr(dirs);
 	if (mini->exit_value == 126)
 		mini->exit_value = 126;
+	else if (mini->exit_value == 0)
+		mini->exit_value = 0;
 	else
 		mini->exit_value = 127;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:59:13 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/17 17:19:24 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:38:52 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,35 @@ int	ft_echo_unclosed_loop(t_mini *mini, char *args, int i)
 			ft_putchar_fd(args[i], mini->fd);
 			i++;
 		}
+	}
+	return (0);
+}
+
+int	ft_check_n(t_mini *mini, int j)
+{
+	char	pair_quote;
+	int		i;
+
+	pair_quote = '\0';
+	i = 0;
+	if (!mini->args[j])
+		return (1);
+	if (mini->args[j][i] == '"' || mini->args[j][i] == '\'')
+	{
+		pair_quote = mini->args[j][i];
+		if (ft_look_for_quote(mini, mini->args[j], i) == 0)
+			return (1);
+		i++;
+	}
+	if (mini->args[j][i++] != '-')
+		return (1);
+	if (mini->args[j][i] == '\0')
+		return (1);
+	while (mini->args[j][i] && mini->args[j][i] != pair_quote)
+	{
+		if (mini->args[j][i] != 'n')
+			return (1);
+		i++;
 	}
 	return (0);
 }

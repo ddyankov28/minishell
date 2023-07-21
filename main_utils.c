@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 11:48:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:23:03 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,16 @@ int	ft_is_dircetory(t_mini *mini)
 	char	*env_value;
 	char	*to_compare;
 
+	ft_delete_quotes_for_str(mini, 0);
 	to_compare = ft_strtrim(mini->args[0], "$");
 	env_value = ft_get_value_from_env(mini->env, to_compare);
 	free(to_compare);
 	if (!env_value)
-		return (0);
+		return (1);
 	if (access(env_value, F_OK | X_OK) == 0)
 	{
 		printf("minishell: %s: Is a directoy\n", env_value);
+		mini->exit_value = 126;
 		return (1);
 	}
 	return (0);

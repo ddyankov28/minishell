@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 17:19:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:51:36 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int	ft_envval_unclosed(t_mini *mini, char *args, char *str, int i)
 				ft_putchar_fd(args[i], mini->fd);
 			break ;
 		}
+		if (args[i] == ' ')
+			break ;
 	}
 	str[j] = '\0';
 	ft_echo_env(mini, str);

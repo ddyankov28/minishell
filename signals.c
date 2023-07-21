@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:38:04 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 12:36:42 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:39:01 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,19 @@ void	ft_write_space(t_mini *mini, int index)
 	}
 }
 
-int	ft_check_n(t_mini *mini, int j)
+void	ft_check_status(t_mini *mini, int status)
 {
-	char	pair_quote;
-	int		i;
-
-	pair_quote = '\0';
-	i = 0;
-	if (!mini->args[j])
-		return (1);
-	if (mini->args[j][i] == '"' || mini->args[j][i] == '\'')
+	if (status == 2)
 	{
-		pair_quote = mini->args[j][i];
-		if (ft_look_for_quote(mini, mini->args[j], i) == 0)
-			return (1);
-		i++;
+		mini->exit_value = 130;
+		g_exit_status = 130;
+		write(1, "\n", 1);
 	}
-	if (mini->args[j][i++] != '-')
-		return (1);
-	if (mini->args[j][i] == '\0')
-		return (1);
-	while (mini->args[j][i] && mini->args[j][i] != pair_quote)
+	if (status == 131)
 	{
-		if (mini->args[j][i] != 'n')
-			return (1);
-		i++;
+		write(1, "Quit (core dumped)\n", 20);
+		mini->exit_value = 131;
 	}
-	return (0);
+	else
+		mini->exit_value = WEXITSTATUS(status);
 }
