@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:52 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 12:30:23 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:10:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,4 @@ void	ft_free_env_input(t_mini *mini)
 {
 	ft_free_2d_arr(mini->env);
 	ft_free_input(mini);
-	rl_clear_history();
 }

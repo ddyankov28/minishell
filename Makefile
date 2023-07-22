@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
+#    By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/07/18 16:49:39 by vstockma         ###   ########.fr        #
+#    Updated: 2023/07/22 12:13:15 by ddyankov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = main.c main_utils.c\
 	pipe.c pipe_utils.c pipe_split.c pipe_commands.c\
 	redirections_main.c redirections_main_utils.c\
 	redirections_double_left_utils.c redirections_handle_fds.c\
-	execute_external.c \
+	execute_external.c redirections_fork.c\
 	split_input_main.c split_input_for_space_pipes_red.c split_input_for_quotes.c\
 	split_input_utils.c\
 	free.c\

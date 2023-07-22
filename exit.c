@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:52:41 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/20 12:45:12 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/22 13:31:11 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,29 @@ static void	ft_exit_error(t_mini *mini)
 	ft_write_without_quotes(mini, mini->args[1]);
 	ft_printf(": numeric argument required\n");
 	ft_free_env_input(mini);
-	if (mini->exit_flag == 1)
-		exit(2);
-	else
-		exit(mini->result);
+	exit(2);
 }
 
-static void	ft_exit_2_args(t_mini *mini)
+static int	ft_exit_2_args(t_mini *mini)
 {
-	if (mini->args[2] != NULL)
+	int	x;
+	int	i;
+
+	i = 0;
+	x = 0;
+	while (mini->args[1][i])
+	{
+		if (!ft_isdigit(mini->args[1][i]))
+			x = 1;
+		i++;
+	}
+	if (mini->args[2] != NULL && x == 0)
 	{
 		printf("minishell: exit: too many arguments\n");
-		ft_free_env_input(mini);
-		exit(2);
+		mini->exit_value = 1;
+		return (1);
 	}
+	return (0);
 }
 
 void	ft_exit(char *input, t_mini *mini)
@@ -67,14 +76,15 @@ void	ft_exit(char *input, t_mini *mini)
 	int	x;
 
 	x = 0;
-	free(input);
 	ft_printf("exit\n");
 	if (mini->args[1] != NULL)
 	{
 		ft_check_if_num(mini, mini->args[1]);
 		ft_delete_quotes_for_str(mini, 1);
 		ft_atoi_customize(mini, mini->args[1]);
-		ft_exit_2_args(mini);
+		if (ft_exit_2_args(mini) == 1)
+			return ;
+		free(input);
 		if (mini->exit_flag != 0)
 			ft_exit_error(mini);
 		else

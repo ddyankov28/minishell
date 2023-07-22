@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/21 12:24:38 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:29:46 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,14 @@ static void	ft_fork_for_externals(t_mini *mini)
 	signal(SIGQUIT, SIG_IGN);
 	{
 		if (pid == -1)
-		{
-			perror("fork");
-			exit(1);
-		}
+			ft_fork_error();
 		else if (!pid)
 		{
 			signal(SIGQUIT, handle_sigquit);
 			signal(SIGINT, SIG_DFL);
 			ft_search_and_execute(mini, 0);
+			if (mini->exit_value == 127)
+				exit(127);
 			exit(0);
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:10:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 16:43:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:03:25 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_set_pwd(t_mini *mini)
 	name = "PWD";
 	current_path = ft_get_current_path(mini);
 	value = ft_strjoin("PWD=", current_path);
+	free(current_path);
 	if (value != NULL)
 	{
 		mini->env = ft_set_env_var(name, value, mini->env, mini);

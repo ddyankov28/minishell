@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/17 22:38:45 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:31:26 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	ft_fork_for_commands(t_mini *mini, int *pipe_fds)
 		mini->pid_fork[i] = fork();
 		signal(SIGINT, SIG_IGN);
 		if (mini->pid_fork[i] < 0)
-		{
-			perror("Fork Error");
-			exit(EXIT_FAILURE);
-		}
+			ft_fork_error();
 		else if (!mini->pid_fork[i])
 		{
 			signal(SIGINT, SIG_DFL);

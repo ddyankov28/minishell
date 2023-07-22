@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/21 13:41:52 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 11:47:26 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ static void	ft_check_path_if(t_mini *mini, char *path_env, int sw)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(mini->args[0], 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		ft_free_2d_arr(mini->args);
+		ft_free_input(mini);
 		ft_free_2d_arr(mini->env);
-		free(mini->space_flag);
 		exit(2);
 	}
 }

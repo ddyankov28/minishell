@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/21 12:26:01 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:06:53 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,5 +246,10 @@ void				ft_command_not_found(t_mini *mini, int sw, int i);
 void				ft_write_space(t_mini *mini, int index);
 void				ft_check_path(t_mini *mini, char *path_env, int sw);
 void				ft_write_space(t_mini *mini, int index);
+void				ft_fork_error(void);
+void				ft_execve_error(t_mini *mini);
+void				ft_no_path(t_mini *mini);
+void				ft_not_valid(t_mini *mini);
+void				ft_pwd(t_mini *mini);
 
 #endif

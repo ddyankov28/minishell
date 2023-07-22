@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:59:13 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/21 12:26:25 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:07:31 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	ft_check_folder(t_mini *mini)
 	int		i;
 
 	path = ft_get_value_from_env(mini->env, "PATH");
+	if (!path)
+		return (1);
 	dirs = ft_split(path, ':');
 	i = 0;
 	while (dirs[i])
@@ -102,4 +104,10 @@ int	ft_check_folder(t_mini *mini)
 	}
 	ft_free_2d_arr(dirs);
 	return (1);
+}
+
+void	ft_fork_error(void)
+{
+	perror("Fork failed");
+	exit(1);
 }

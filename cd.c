@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/18 15:25:30 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/22 14:06:26 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ static void	ft_oldpwd(t_mini *mini, char *current_path)
 
 	oldpwd = ft_get_value_from_env(mini->env, "OLDPWD");
 	if (!oldpwd)
-	{
-		printf("minishell: cd: HOME not set\n");
 		return ;
-	}
 	if (chdir(oldpwd) == 0)
 	{
 		ft_set_oldpwd(mini, current_path);
@@ -54,6 +51,7 @@ static void	ft_home(t_mini *mini, char *current_path)
 	if (!home_dir)
 	{
 		printf("minishell: cd: HOME not set\n");
+		mini->exit_value = 1;
 		return ;
 	}
 	if (chdir(home_dir) == 0)
@@ -94,7 +92,7 @@ void	ft_change_directory(t_mini *mini)
 	else if (!mini->args[1] || (!ft_strcmp(mini->args[1], "~")))
 		ft_change_to_cd(mini, current_path);
 	else if (!ft_strcmp_with_quotes(mini, mini->args[1], "$PWD"))
-		mini->exit_value = 0;
+		ft_pwd(mini);
 	else if (!ft_strcmp_with_quotes(mini, mini->args[1], "$HOME"))
 		ft_home(mini, current_path);
 	else if ((!ft_strcmp(mini->args[1], "-")) || !ft_strcmp_with_quotes(mini,

@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:20:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/21 13:18:56 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:16:21 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_get_path(t_mini *mini)
 	{
 		if (ft_strchr(mini->args[0], '/') != NULL)
 		{
-			path = mini->args[0];
+			path = ft_strdup(mini->args[0]);
 			return (path);
 		}
 		path = ft_strjoin("/bin/", mini->args[0]);
@@ -38,24 +38,23 @@ void	ft_fork_redirections(t_mini *mini)
 	char	*path;
 
 	pid = fork();
-	if (!pid)
+	if (pid == -1)
+		ft_fork_error();
+	else if (!pid)
 	{
 		path = ft_get_path(mini);
 		if (!path)
-			exit(1);
+			ft_no_path(mini);
 		if (execve(path, mini->exec_arr, mini->env) == -1)
 		{
-			ft_free_input(mini);
-			ft_free_2d_arr(mini->env);
 			free(path);
-			unlink("/tmp/mini_here_doc_XXXXXX");
-			exit(1);
+			ft_execve_error(mini);
 		}
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (status  == 256)
+		if (status == 256)
 			mini->exit_value = 127;
 		unlink("/tmp/mini_here_doc_XXXXXX");
 	}
