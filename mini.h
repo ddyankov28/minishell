@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 14:06:53 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:49:31 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,7 @@ void				ft_fork_for_commands_extension(t_mini *mini, int i,
 void				ft_wait_for_processes(t_mini *mini, int num_commands);
 
 // redirections_double_left_utils.c
-int					ft_read_input_redirection(t_mini *mini, char *delimiter,
-						int i);
+int					ft_read_input_redirection(t_mini *mini,	int i);
 
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
@@ -251,5 +250,7 @@ void				ft_execve_error(t_mini *mini);
 void				ft_no_path(t_mini *mini);
 void				ft_not_valid(t_mini *mini);
 void				ft_pwd(t_mini *mini);
+int					ft_check_multiple_redirections(t_mini *mini);
+char				*ft_new_str(t_mini *mini, char *delim);
 
 #endif

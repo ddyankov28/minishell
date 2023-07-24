@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 12:25:16 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:52:11 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,19 @@ static void	ft_print_herdoc(char **hdoc, t_mini *mini)
 
 static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
 {
-	int	j;
+	int		j;
+	char	*new_delim;
 
 	j = 0;
+	new_delim = ft_new_str(mini, delim);
 	while (1)
 	{
 		inp_line = readline("> ");
 		if (!inp_line)
 			break ;
-		if (!ft_strncmp(inp_line, delim, ft_strlen(delim))
-			&& (inp_line[ft_strlen(delim)] == '\n'
-				|| inp_line[ft_strlen(delim)] == '\0'))
+		if (!ft_strncmp(inp_line, new_delim, ft_strlen(new_delim))
+			&& (inp_line[ft_strlen(new_delim)] == '\n'
+				|| inp_line[ft_strlen(new_delim)] == '\0'))
 		{
 			break ;
 		}
@@ -108,10 +110,12 @@ static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
 	free(inp_line);
 }
 
-int	ft_read_input_redirection(t_mini *mini, char *delimiter, int i)
+int	ft_read_input_redirection(t_mini *mini, int i)
 {
 	char	*input_line;
+	char	*delimiter;
 
+	delimiter = ft_strdup(mini->args[i + 1]);
 	input_line = NULL;
 	mini->heredoc = malloc(sizeof(char *) * 1024);
 	if (!mini->heredoc)
@@ -120,6 +124,7 @@ int	ft_read_input_redirection(t_mini *mini, char *delimiter, int i)
 		ft_free_malloc(mini);
 	}
 	ft_heredoc_loop(mini, input_line, delimiter);
+	free(delimiter);
 	if (i == 0)
 		return (1);
 	if (mini->here == mini->count_heredoc)

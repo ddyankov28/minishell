@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_main.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/22 12:43:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:22:21 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@ static int	ft_loop_input_string(t_mini *mini)
 {
 	while (mini->input[mini->i])
 	{
-		if (mini->redirection_count > 2)
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `",
-				mini->fd);
-			ft_putchar_fd(mini->input[mini->i - 1], mini->fd);
-			ft_putstr_fd("'\n", mini->fd);
+		if (ft_check_multiple_redirections(mini) == 1)
 			return (1);
-		}
 		ft_skip_spaces(mini, mini->input);
 		if (mini->input[mini->i] == '\0')
 			break ;
@@ -38,6 +32,8 @@ static int	ft_loop_input_string(t_mini *mini)
 		else
 			ft_split_space(mini);
 	}
+	if (ft_check_multiple_redirections(mini) == 1)
+		return (1);
 	return (0);
 }
 

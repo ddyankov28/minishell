@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_main.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 11:47:32 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:50:23 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 			O_CREAT | O_EXCL | O_RDWR, 0777);
 	if (mini->input_fd < 0)
 		ft_input_fd(mini);
-	if (ft_read_input_redirection(mini, mini->args[i + 1], i) == 1)
+	if (ft_read_input_redirection(mini, i) == 1)
 		return (1);
 	if (mini->here != mini->count_heredoc)
 		unlink("/tmp/mini_here_doc_XXXXXX");
@@ -45,6 +45,7 @@ static int	ft_double_redirect_right(t_mini *mini, int i)
 		return (1);
 	free(mini->args[i]);
 	mini->args[i] = NULL;
+	ft_delete_quotes_for_str(mini, i + 1);
 	mini->append_fd = open(mini->args[i + 1], O_CREAT | O_WRONLY | O_APPEND,
 			0777);
 	if (i == 0)
