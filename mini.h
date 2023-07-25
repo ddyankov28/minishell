@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/24 11:49:31 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:20:11 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ void				ft_exit_if_no_path(t_mini *mini);
 void				ft_search_and_execute(t_mini *mini, int sw);
 int					ft_check_access_for_external(t_mini *mini, int i,
 						char **dirs, char **args);
-void				ft_execute_external(char *path, t_mini *mini, char **args);
+void				ft_execute_external(char *path, t_mini *mini, 
+						char **args, char **dirs);
 
 // exit.c
 void				ft_exit(char *input, t_mini *mini);

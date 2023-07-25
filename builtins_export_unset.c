@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:45:56 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/22 13:51:32 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 09:46:01 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**ft_set_env_var(char *name, char *value, char **env, t_mini *mini)
 	count = 0;
 	while (env[count] != NULL)
 	{
-		if (strncmp(env[count], name, ft_strlen(name)) == 0
+		if (ft_strncmp(env[count], name, ft_strlen(name)) == 0
 			&& env[count][ft_strlen(name)] == '=')
 		{
 			free(env[count]);

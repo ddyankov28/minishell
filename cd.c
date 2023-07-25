@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 13:11:40 by valentin          #+#    #+#             */
-/*   Updated: 2023/07/22 14:06:26 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:21:58 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ static void	ft_change_to_cd(t_mini *mini, char *current_path)
 	i = 0;
 	path_env = ft_get_value_from_env(mini->env, "PATH");
 	if (!path_env)
-		perror("cd");
+	{
+		printf("minishell: cd: HOME not set\n");
+		mini->exit_value = 1;
+		return ;
+	}
 	dirs = ft_split(path_env, ':');
 	while (dirs[0][i])
 		i++;

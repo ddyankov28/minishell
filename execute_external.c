@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:41 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 11:47:28 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:16:24 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_check_access_for_external(t_mini *mini, int i, char **dirs, char **args)
 	free(dir_path);
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		ft_execute_external(path, mini, args);
+		ft_execute_external(path, mini, args, dirs);
 		free(path);
 		ft_free_2d_arr(dirs);
 		return (1);
@@ -91,9 +91,16 @@ int	ft_change_value(t_mini *mini)
 	return (0);
 }
 
-void	ft_execute_external(char *path, t_mini *mini, char **args)
+void	ft_execute_external(char *path, t_mini *mini, char **args, char **dirs)
 {
-	execve(path, args, mini->env);
-	perror("Execve Error");
-	exit(EXIT_FAILURE);
+	if (execve(path, args, mini->env) == -1)
+	{
+		ft_free_2d_arr(mini->env);
+		ft_free_2d_arr(mini->args);
+		ft_free_2d_arr(dirs);
+		free(mini->space_flag);
+		free(path);
+		perror("execve error");
+		exit(EXIT_FAILURE);
+	}
 }
