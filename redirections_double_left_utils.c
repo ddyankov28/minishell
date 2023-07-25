@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/25 10:29:14 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:30:29 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
 	new_delim = ft_new_str(mini, delim);
 	while (1)
 	{
-		signal(SIGINT, sigint_handler);
 		inp_line = readline("> ");
 		if (!inp_line)
 			break ;

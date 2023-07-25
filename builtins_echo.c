@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:30 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/18 10:18:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:33:59 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_echo(t_mini *mini, char **args, int i)
 			ft_echo_unclosed(mini, args[i], i);
 		i++;
 	}
+	mini->exit_value = 0;
 }
 
 void	ft_echo_double(t_mini *mini, char *args, int index)
