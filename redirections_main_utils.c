@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:20:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 12:16:21 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:36:59 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,19 @@ void	ft_count_double_left(t_mini *mini)
 
 void	ft_input_fd(t_mini *mini)
 {
+	int	i;
+
+	i = 0;
 	perror("Temp file error");
-	free(mini->space_flag);
+	while (i < mini->index)
+	{
+		free(mini->args[i]);
+		i++;
+	}
+	free(mini->args);
 	ft_free_2d_arr(mini->env);
-	ft_free_2d_arr(mini->args);
+	ft_free_2d_arr(mini->exec_arr);
+	free(mini->space_flag);
 	mini->exit_value = 1;
 	exit(1);
 }
