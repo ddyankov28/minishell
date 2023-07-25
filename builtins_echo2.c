@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/21 10:51:36 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:37:11 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_echo_env(t_mini *mini, char *args)
 
 	env_value = ft_get_value_from_env(mini->env, args);
 	if (env_value != NULL)
-		write(1, env_value, strlen(env_value));
+		write(1, env_value, ft_strlen(env_value));
 }
 
 int	ft_split_double(t_mini *mini, char *args, int i)
