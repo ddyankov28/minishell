@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/21 13:27:34 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:06:36 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_check_if_external(t_mini *mini)
 		return (1);
 	dirs = ft_split(path_env, ':');
 	i = 0;
-	ft_delete_quotes(mini);
+	// ft_delete_quotes(mini);
 	while (dirs[i])
 	{
 		if (ft_check_if_access(i, dirs, mini->args) == 1)

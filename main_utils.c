@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 11:29:46 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:40:30 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,21 @@ static void	ft_fork_for_externals(t_mini *mini)
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	if (pid == -1)
+		ft_fork_error();
+	else if (!pid)
 	{
-		if (pid == -1)
-			ft_fork_error();
-		else if (!pid)
-		{
-			signal(SIGQUIT, handle_sigquit);
-			signal(SIGINT, SIG_DFL);
-			ft_search_and_execute(mini, 0);
-			if (mini->exit_value == 127)
-				exit(127);
-			exit(0);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			ft_check_status(mini, status);
-		}
+		signal(SIGQUIT, handle_sigquit);
+		signal(SIGINT, SIG_DFL);
+		ft_search_and_execute(mini, 0);
+		if (mini->exit_value == 127)
+			exit(127);
+		exit(0);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		ft_check_status(mini, status);
 	}
 }
 
@@ -93,6 +91,7 @@ int	ft_is_dircetory(t_mini *mini)
 
 static void	ft_read_input(t_mini *mini)
 {
+	ft_expand(mini);
 	if (!mini->args[0])
 		return ;
 	if (!ft_strcmp_with_quotes(mini, mini->args[0], "$PWD")

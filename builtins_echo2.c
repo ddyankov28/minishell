@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/25 11:37:11 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:02:37 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	ft_envval_unclosed(t_mini *mini, char *args, char *str, int i)
 				ft_putchar_fd(args[i], mini->fd);
 			break ;
 		}
-		if (args[i] == ' ')
+		if (args[i] == ' ' || args[i] < 'A' || (args[i] > 'Z' && args[i] < 'a')
+			|| args[i] > 'z')
 			break ;
 	}
 	str[j] = '\0';

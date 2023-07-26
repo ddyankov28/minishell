@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+         #
+#    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/07/22 12:13:15 by ddyankov         ###   ########.fr        #
+#    Updated: 2023/07/26 11:39:20 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC = main.c main_utils.c\
 	modifying_quotes.c\
 	utils.c utils2.c\
 	signals.c\
+	expand.c\
 
 OBJS = $(SRC:.c=.o)
 

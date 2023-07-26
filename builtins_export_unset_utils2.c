@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils2.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:49:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/20 10:48:22 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:08:25 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_check_chars(t_mini *mini, int i)
 		|| (mini->args[1][i] >= 44 && mini->args[1][i] <= 47)
 		|| (mini->args[1][i] >= 58 && mini->args[1][i] <= 60)
 		|| (mini->args[1][i] >= 62 && mini->args[1][i] <= 64)
-		|| (mini->args[1][i] >= 91 && mini->args[1][i] <= 96)
+		|| (mini->args[1][i] >= 91 && mini->args[1][i] <= 94)
+		|| mini->args[1][i] == 96
 		|| (mini->args[1][i] >= 123 && mini->args[1][i] <= 126))
 		mini->export_sw++;
 }

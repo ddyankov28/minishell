@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 11:31:26 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:40:44 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_check_for_double_left_redirection(t_mini *mini)
 
 int	ft_execute_pipes(t_mini *mini)
 {
+	ft_expand(mini);
 	ft_split_into_commands(mini);
 	mini->num_commands = ft_len_2d_arr(mini->commands);
 	mini->pipe_fds = malloc(sizeof(int) * (2 * mini->num_commands));

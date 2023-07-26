@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/25 10:20:11 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:41:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ typedef struct s_mini
 	int				redirection_count;
 	int				plus;
 	char			*name;
+	int				xx;
+	int				swit;
+	char			*envvv;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -153,6 +156,9 @@ void				ft_execute_external(char *path, t_mini *mini,
 
 // exit.c
 void				ft_exit(char *input, t_mini *mini);
+
+//expand.c
+int					ft_expand(t_mini *mini);
 
 //  free.c
 void				ft_free_input(t_mini *mini);
