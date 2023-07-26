@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:41 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 11:40:23 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:09:54 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_search_and_execute(t_mini *mini, int sw)
 	dirs = ft_split(path_env, ':');
 	i = 0;
 	ft_change_value(mini);
-	//ft_expand(mini);
 	while (dirs[i])
 	{
 		if (ft_check_access_for_external(mini, i, dirs, mini->args) == 1)

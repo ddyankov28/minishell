@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 11:41:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:56:15 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,17 @@ typedef struct s_mini
 	int				redirection_count;
 	int				plus;
 	char			*name;
+
 	int				xx;
 	int				swit;
 	char			*envvv;
+	int				j;
+	int				env_index;
+	int				sw_dollar;
+	char			*str_to_look;
+	int				a;
+	char			*new_str;
+	int				in;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -160,6 +168,8 @@ void				ft_exit(char *input, t_mini *mini);
 //expand.c
 int					ft_expand(t_mini *mini);
 
+//new_args.c
+char				*ft_get_new_str(t_mini *mini);
 //  free.c
 void				ft_free_input(t_mini *mini);
 void				ft_free_result_commands(t_mini *mini);
@@ -259,5 +269,5 @@ void				ft_not_valid(t_mini *mini);
 void				ft_pwd(t_mini *mini);
 int					ft_check_multiple_redirections(t_mini *mini);
 char				*ft_new_str(t_mini *mini, char *delim);
-
+int					ft_swit(t_mini *mini);
 #endif

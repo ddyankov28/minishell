@@ -6,7 +6,7 @@
 #    By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/07/26 11:39:20 by vstockma         ###   ########.fr        #
+#    Updated: 2023/07/26 12:58:55 by vstockma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,9 @@ SRC = main.c main_utils.c\
 	split_input_utils.c\
 	free.c\
 	modifying_quotes.c\
-	utils.c utils2.c\
+	utils.c utils2.c utils3.c\
 	signals.c\
-	expand.c\
+	expand.c new_args.c\
 
 OBJS = $(SRC:.c=.o)
 
