@@ -6,7 +6,7 @@
 #    By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 15:22:07 by ddyankov          #+#    #+#              #
-#    Updated: 2023/07/27 12:19:09 by ddyankov         ###   ########.fr        #
+#    Updated: 2023/07/27 16:36:51 by ddyankov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = main.c main_utils.c\
 	redirections_double_left_utils.c redirections_handle_fds.c\
 	execute_external.c redirections_fork.c\
 	split_input_main.c split_input_for_space_pipes_red.c split_input_for_quotes.c\
-	split_input_utils.c fork_heredoc.c\
+	split_input_utils.c\
 	free.c\
 	modifying_quotes.c\
 	utils.c utils2.c utils3.c\

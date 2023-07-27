@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_unset_utils2.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:49:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 13:37:59 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:44:39 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,13 @@ int	ft_value_return(t_mini *mini, int i)
 		return (0);
 	}
 	return (1);
+}
+
+void	sigint_heredoc(int sig)
+{
+	(void)sig;
+	ioctl(0, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_exit_status = 130;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 13:15:03 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:51:25 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,34 @@ char	*ft_replace_line(char *s, t_mini *mini)
 	return (output);
 }
 
+static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
+{
+	char	*new_delim;
+	char	*str;
+
+	new_delim = ft_new_str(mini, delim);
+	while (g_exit_status != 130)
+	{
+		ft_putstr_fd("> ", 1);
+		inp_line = get_next_line(0);
+		if (!inp_line)
+			break ;
+		if (!ft_strncmp(inp_line, new_delim, ft_strlen(new_delim))
+			&& (inp_line[ft_strlen(new_delim)] == '\n'
+				|| inp_line[ft_strlen(new_delim)] == '\0'))
+		{
+			ft_putstr_fd(NULL, mini->input_fd);
+			free(inp_line);
+			break ;
+		}
+		str = ft_replace_line(inp_line, mini);
+		ft_putendl_fd(str, mini->input_fd);
+		free(inp_line);
+		free(str);
+	}
+	
+}
+
 int	ft_read_input_redirection(t_mini *mini, int i)
 {
 	char	*input_line;
@@ -75,7 +103,8 @@ int	ft_read_input_redirection(t_mini *mini, int i)
 
 	delimiter = ft_strdup(mini->args[i + 1]);
 	input_line = NULL;
-	ft_fork_heredoc(mini, input_line, delimiter);
+	signal(SIGINT, sigint_heredoc);
+	ft_heredoc_loop(mini, input_line, delimiter);
 	free(delimiter);
 	if (i == 0)
 		return (1);

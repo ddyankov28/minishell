@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:29:10 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:41:36 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int					ft_redirect_right_check(t_mini *mini);
 void				sigint_handler(int sig);
 void				handle_sigquit(int sig);
 void				ft_ctrl_d(t_mini *mini);
+void				sigint_heredoc(int sig);
 
 // split_input_for_quotes.c
 void				ft_split_double_quotes(t_mini *mini);
