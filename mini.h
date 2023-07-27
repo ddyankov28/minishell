@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:41:36 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:23:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,4 +279,7 @@ int					ft_x(t_mini *mini);
 void				ft_fork_heredoc(t_mini *mini, char *inp_line, char *delim);
 char				*ft_replace_line(char *s, t_mini *mini);
 int					ft_valid_or_not(t_mini *mini, int i);
+void				ft_yes_directory(t_mini *mini);
+int					ft_question(t_mini *mini);
+void				ft_allocate_and_initiate(t_mini *mini);
 #endif

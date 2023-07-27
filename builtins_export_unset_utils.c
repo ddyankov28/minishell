@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:39:47 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 14:16:03 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:35:44 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_name(t_mini *mini)
 	}
 	if (mini->plus > 1)
 		mini->export_sw++;
+	if (mini->export_sw != 0)
+		return (1);
 	ft_value(mini);
 	return (0);
 }

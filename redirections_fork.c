@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:12:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 13:38:09 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:38:07 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_not_valid(t_mini *mini)
 	ft_printf("': not a valid identifier\n");
 	mini->exit_value = 1;
 	free(mini->name);
-	free(mini->value);
+	if (mini->value)
+		free(mini->value);
 }
 
 void	ft_pwd(t_mini *mini)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/13 12:27:52 by valentin         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:26:04 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,40 @@ int	ft_is_builtin(t_mini *mini, char *command)
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_yes_directory(t_mini *mini)
+{
+	execve(mini->args[0], mini->args, mini->env);
+	printf("minishell: %s: Is a directoy\n", mini->args[0]);
+	ft_free_2d_arr(mini->env);
+	ft_free_input(mini);
+	exit(126);
+}
+
+int	ft_question(t_mini *mini)
+{
+	char	*str;
+	int		xyz;
+
+	xyz = 0;
+	if (mini->args[mini->xx][mini->j] == '?')
+	{
+		mini->j++;
+		str = ft_itoa(mini->exit_value);
+		while (str[xyz])
+			mini->new_str[mini->in++] = str[xyz++];
+		free(str);
+		free(mini->str_to_look);
+		return (0);
+	}
+	return (1);
+}
+
+void	ft_allocate_and_initiate(t_mini *mini)
+{
+	mini->a = 0;
+	mini->str_to_look = ft_calloc(1024, 1);
+	mini->j++;
+	mini->env_index = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 16:20:18 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:22:06 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ static int	ft_break(t_mini *mini)
 
 static int	ft_if_dollar(t_mini *mini)
 {
-	mini->a = 0;
-	mini->str_to_look = ft_calloc(1024, 1);
-	mini->j++;
-	mini->env_index = 0;
+	ft_allocate_and_initiate(mini);
+	if (ft_question(mini) == 0)
+		return (0);
 	while (mini->args[mini->xx][mini->j] != '$' && mini->args[mini->xx][mini->j]
 		&& mini->args[mini->xx][mini->j] != ' ')
 	{

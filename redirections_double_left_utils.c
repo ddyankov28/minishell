@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 16:51:25 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:31:34 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
 		free(inp_line);
 		free(str);
 	}
-	
 }
 
 int	ft_read_input_redirection(t_mini *mini, int i)
