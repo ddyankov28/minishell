@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:55:49 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 12:18:24 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:17:01 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	ft_init_another_struct(t_mini *mini)
 	mini->a = 0;
 	mini->in = 0;
 	mini->abc = 0;
+	mini->not_valid = 0;
 	return (0);
 }
 
@@ -68,4 +69,33 @@ void	ft_init_struct(t_mini *mini)
 	mini->redirection_count = 0;
 	mini->plus = 0;
 	ft_init_another_struct(mini);
+}
+
+int	ft_valid_or_not(t_mini *mini, int i)
+{
+	int	j;
+
+	j = 0;
+	if (mini->args[i][0] == '\'' || mini->args[i][0] == '\"')
+	{
+		if (ft_look_for_quote(mini, mini->args[i], j) == 1 && mini->space_flag[i
+				- 1] == 0)
+			return (0);
+	}
+	if (mini->space_flag[i - 1] == 0)
+		return (0);
+	while (mini->args[i][j])
+	{
+		if ((mini->args[i][j] >= 33 && mini->args[i][j] <= 47)
+			|| (mini->args[i][j] >= 58 && mini->args[i][j] <= 64)
+			|| (mini->args[i][j] >= 91 && mini->args[i][j] <= 96)
+			|| (mini->args[i][j] >= 123 && mini->args[i][j] <= 126))
+		{
+			mini->export_sw++;
+			mini->not_valid = i;
+			return (1);
+		}
+		j++;
+	}
+	return (0);
 }

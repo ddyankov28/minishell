@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_fork.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:12:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 14:06:42 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:38:09 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_execve_error(t_mini *mini)
 void	ft_not_valid(t_mini *mini)
 {
 	ft_printf("minishell: export: `");
-	ft_write_without_quotes(mini, mini->args[1]);
+	ft_write_without_quotes(mini, mini->args[mini->not_valid]);
 	ft_printf("': not a valid identifier\n");
 	mini->exit_value = 1;
 	free(mini->name);

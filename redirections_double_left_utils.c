@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 12:37:51 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:15:03 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ int	ft_read_input_redirection(t_mini *mini, int i)
 	free(delimiter);
 	if (i == 0)
 		return (1);
+	if (g_exit_status == 130)
+	{
+		unlink("/tmp/mini_here_doc_XXXXXX");
+		return (1);
+	}
 	return (0);
 }

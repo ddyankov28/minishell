@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:49:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/25 12:08:25 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:37:59 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_check_chars(t_mini *mini, int i)
 		|| (mini->args[1][i] >= 91 && mini->args[1][i] <= 94)
 		|| mini->args[1][i] == 96
 		|| (mini->args[1][i] >= 123 && mini->args[1][i] <= 126))
+	{
 		mini->export_sw++;
+		mini->not_valid = 1;
+	}
 }
 
 char	*ft_put_value(char *env_val, char *value, char *final_value)
