@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 11:02:31 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:38:11 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ static void	ft_command_not_found_loop(t_mini *mini, int i)
 	while (mini->args[i])
 	{
 		mini->space_or_not = 1;
-		if (mini->args[i][0] == '\"' && ft_look_for_quote(mini, mini->args[i],
-			0) == 1)
-			ft_echo_double(mini, mini->args[i], 0);
-		else if (mini->args[i][0] == '\'' && ft_look_for_quote(mini,
-			mini->args[i], 0))
-			ft_echo_single(mini, mini->args[i], 0);
-		else
-			ft_echo_unclosed(mini, mini->args[i], 0);
+		ft_echo_unclosed(mini, mini->args[i], 0);
 		if (mini->space_flag[i] != 0)
 			break ;
 		i++;
@@ -103,7 +96,6 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 	int	file_exists;
 
 	file_exists = 0;
-	ft_delete_quotes_for_str(mini, 0);
 	file_exists = open(mini->args[0], O_RDONLY);
 	if (ft_strchr(mini->args[0], '/') != NULL)
 	{

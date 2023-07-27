@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 14:16:34 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:10:41 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_mini
 	int				plus;
 	char			*name;
 	int				not_valid;
+	int				is_redirection;
 
 	int				xx;
 	int				swit;

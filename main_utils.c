@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 11:40:30 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:11:06 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	ft_is_dircetory(t_mini *mini)
 
 static void	ft_read_input(t_mini *mini)
 {
-	ft_expand(mini);
 	if (!mini->args[0])
 		return ;
 	if (!ft_strcmp_with_quotes(mini, mini->args[0], "$PWD")
@@ -106,6 +105,10 @@ static void	ft_read_input(t_mini *mini)
 		return ;
 	if (mini->here > 0)
 		ft_fork_redirections(mini);
+	if (mini->is_redirection == 0)
+		ft_expand(mini);
+	if (mini->args[0] == 0)
+		return ;
 	if (ft_is_builtin(mini, mini->args[0]))
 		ft_execute_built_ins(mini, mini->input);
 	else

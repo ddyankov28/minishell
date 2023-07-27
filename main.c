@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:10:18 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 13:52:34 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:02:06 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ static void	ft_check_args(int ac, char **av)
 		printf("./minishell: %s: No such file or directory\n", av[1]);
 		exit(1);
 	}
+}
+
+int	ft_check_inp(t_mini *mini, char *input)
+{
+	int	i;
+
+	i = 0;
+	while ((input[i] == '\'' || input[i] == '\"') && input[i])
+		i++;
+	if (input[i] == '\0')
+	{
+		ft_write_without_quotes(mini, input);
+		printf(": command not found\n");
+		mini->exit_value = 127;
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_check_input(t_mini *mini, char *input)
@@ -39,6 +56,11 @@ int	ft_check_input(t_mini *mini, char *input)
 		while (input[i] == ' ' && input[i])
 			i++;
 		if (input[i] == '\0')
+			return (1);
+	}
+	else if (input[i] == '\'' || input[i] == '\"')
+	{
+		if (ft_check_inp(mini, input) == 1)
 			return (1);
 	}
 	return (0);
