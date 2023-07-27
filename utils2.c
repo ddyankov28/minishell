@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/22 11:47:26 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:02:31 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 				exit(0);
 			}
 			printf("minishell: %s: Permission denied\n", mini->args[0]);
+			ft_free_2d_arr(mini->env);
+			ft_free_input(mini);
 			exit(126);
 		}
 		else

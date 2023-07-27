@@ -6,11 +6,20 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:55:49 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/26 12:59:11 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:29:25 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+int	ft_x(t_mini *mini)
+{
+	if (mini->args[mini->xx][mini->j] == '$' && (mini->sw_dollar == 0
+			|| mini->sw_dollar == 2) && mini->args[mini->xx][mini->j
+		+ 1] != '\0')
+		return (1);
+	return (0);
+}
 
 int	ft_swit(t_mini *mini)
 {
@@ -31,7 +40,8 @@ static int	ft_init_another_struct(t_mini *mini)
 	mini->sw_dollar = 0;
 	mini->a = 0;
 	mini->in = 0;
-    return (0);
+	mini->abc = 0;
+	return (0);
 }
 
 void	ft_init_struct(t_mini *mini)

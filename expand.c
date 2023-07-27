@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 11:38:55 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/26 12:09:06 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:19:18 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	ft_expand_expandation(t_mini *mini, char *new_str, int i)
 		mini->swit = 0;
 	}
 	mini->args[i] = NULL;
+	mini->index = i;
 	return (0);
 }
 

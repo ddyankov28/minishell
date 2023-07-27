@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 12:56:15 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:28:11 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_mini
 	int				a;
 	char			*new_str;
 	int				in;
+	int				abc;
 }					t_mini;
 
 extern unsigned int	g_exit_status;
@@ -270,4 +271,6 @@ void				ft_pwd(t_mini *mini);
 int					ft_check_multiple_redirections(t_mini *mini);
 char				*ft_new_str(t_mini *mini, char *delim);
 int					ft_swit(t_mini *mini);
+int					ft_x(t_mini *mini);
+
 #endif

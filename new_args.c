@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/26 12:55:28 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:27:59 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,12 @@ char	*ft_get_new_str(t_mini *mini)
 	while (mini->args[mini->xx])
 	{
 		ft_if_quotes(mini);
-		if (mini->args[mini->xx][mini->j] == '$' && (mini->sw_dollar == 0
-				|| mini->sw_dollar == 2) && mini->args[mini->xx][mini->j
-			+ 1] != '\0')
+		if (ft_x(mini) == 1)
 		{
-			if (ft_if_dollar(mini) == 1)
+			mini->abc = ft_if_dollar(mini);
+			if (mini->abc == 1)
 				continue ;
-			else if (ft_if_dollar(mini) == 2)
+			else if (mini->abc == 2)
 				break ;
 		}
 		else if (mini->swit == 1)
