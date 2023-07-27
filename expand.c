@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 11:38:55 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 16:28:51 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:02:08 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	ft_check_new_str(t_mini *mini, char *new_str)
 
 static void	ft_i_cant_anymore(t_mini *mini, int i)
 {
-	free(mini->args[i]);
+	if (i != mini->index + 1)
+		free(mini->args[i]);
 	mini->args[i] = NULL;
 	if (mini->index <= i)
 		mini->index = i;
