@@ -6,43 +6,11 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:18:01 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:32:32 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
-
-int	ft_expand_str(t_mini *mini, int i)
-{
-	int		j;
-	char	*env_var;
-	char	*str_to_look;
-	int		index;
-
-	index = 0;
-	j = 0;
-	ft_delete_quotes_for_str(mini, i);
-	if (mini->args[i][j] == '$')
-	{
-		str_to_look = ft_calloc(1024, 1);
-		j++;
-		while (ft_isalpha(mini->args[i][j]) && mini->args[i][j])
-		{
-			str_to_look[index++] = mini->args[i][j++];
-		}
-		env_var = ft_get_value_from_env(mini->env, str_to_look);
-		free(str_to_look);
-		if (!env_var)
-		{
-			printf("minishell: %s: ambiguous redirect\n", mini->args[i]);
-			return (1);
-		}
-		free(mini->args[i]);
-		mini->args[i] = ft_strdup(env_var);
-	}
-	mini->is_redirection = 1;
-	return (0);
-}
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
@@ -75,9 +43,8 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 
 static int	ft_double_redirect_right(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1]))
-		return (1);
-	if (ft_expand_str(mini, i + 1) == 1)
+	if (!ft_check_mini_arg(mini->args[i + 1])
+		|| ft_expand_str(mini, i + 1) == 1)
 		return (1);
 	free(mini->args[i]);
 	mini->args[i] = NULL;
@@ -105,9 +72,8 @@ static int	ft_double_redirect_right(t_mini *mini, int i)
 
 static int	ft_redirect_right(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1]))
-		return (1);
-	if (ft_expand_str(mini, i + 1) == 1)
+	if (!ft_check_mini_arg(mini->args[i + 1])
+		|| ft_expand_str(mini, i + 1) == 1)
 		return (1);
 	free(mini->args[i]);
 	mini->args[i] = NULL;

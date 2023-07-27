@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 15:12:53 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:20:18 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	ft_if_dollar(t_mini *mini)
 
 static int	ft_if_quotes(t_mini *mini)
 {
-	static int count;
+	static int	count;
 
 	if (count == mini->xx)
 	{

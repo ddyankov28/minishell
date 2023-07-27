@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:10:41 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:29:10 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void				ft_exit(char *input, t_mini *mini);
 
 //expand.c
 int					ft_expand(t_mini *mini);
+int					ft_expand_str(t_mini *mini, int i);
 
 //new_args.c
 char				*ft_get_new_str(t_mini *mini);
