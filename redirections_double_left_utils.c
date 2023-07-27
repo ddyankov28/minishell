@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/25 11:30:29 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:37:51 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_after_dollar(t_mini *mini, int i, char *s, char *output)
 	end = i + 1;
 	while (s[end])
 	{
-		if (s[end] == '$' || ft_isspace(s[end]))
+		if (s[end] == '$' || ft_isspace(s[end]) || s[end] == '\n')
 			break ;
 		end++;
 		i++;
@@ -55,7 +55,7 @@ char	*ft_replace_line(char *s, t_mini *mini)
 	{
 		if (s[i] == '$')
 			i = ft_after_dollar(mini, i, s, output);
-		else if (s[i] == '\0')
+		else if (s[i] == '\0' || s[i] == '\n')
 			break ;
 		else
 		{
@@ -68,48 +68,6 @@ char	*ft_replace_line(char *s, t_mini *mini)
 	return (output);
 }
 
-static void	ft_print_herdoc(char **hdoc, t_mini *mini)
-{
-	int	i;
-
-	mini->hdoc_output = malloc(1024 * sizeof(char *));
-	i = 0;
-	while (hdoc[i])
-	{
-		mini->hdoc_output[i] = ft_replace_line(hdoc[i], mini);
-		ft_putendl_fd(mini->hdoc_output[i], mini->input_fd);
-		free(mini->hdoc_output[i]);
-		i++;
-	}
-	free(mini->hdoc_output);
-}
-
-static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
-{
-	int		j;
-	char	*new_delim;
-
-	j = 0;
-	new_delim = ft_new_str(mini, delim);
-	while (1)
-	{
-		inp_line = readline("> ");
-		if (!inp_line)
-			break ;
-		if (!ft_strncmp(inp_line, new_delim, ft_strlen(new_delim))
-			&& (inp_line[ft_strlen(new_delim)] == '\n'
-				|| inp_line[ft_strlen(new_delim)] == '\0'))
-		{
-			break ;
-		}
-		mini->heredoc[j] = ft_strdup(inp_line);
-		j++;
-		free(inp_line);
-	}
-	mini->heredoc[j] = NULL;
-	free(inp_line);
-}
-
 int	ft_read_input_redirection(t_mini *mini, int i)
 {
 	char	*input_line;
@@ -117,18 +75,9 @@ int	ft_read_input_redirection(t_mini *mini, int i)
 
 	delimiter = ft_strdup(mini->args[i + 1]);
 	input_line = NULL;
-	mini->heredoc = malloc(sizeof(char *) * 1024);
-	if (!mini->heredoc)
-	{
-		printf("Heredoc malloc failed\n");
-		ft_free_malloc(mini);
-	}
-	ft_heredoc_loop(mini, input_line, delimiter);
+	ft_fork_heredoc(mini, input_line, delimiter);
 	free(delimiter);
 	if (i == 0)
 		return (1);
-	if (mini->here == mini->count_heredoc)
-		ft_print_herdoc(mini->heredoc, mini);
-	ft_free_2d_arr(mini->heredoc);
 	return (0);
 }

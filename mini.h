@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 11:28:11 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:54:13 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,5 +272,6 @@ int					ft_check_multiple_redirections(t_mini *mini);
 char				*ft_new_str(t_mini *mini, char *delim);
 int					ft_swit(t_mini *mini);
 int					ft_x(t_mini *mini);
-
+void				ft_fork_heredoc(t_mini *mini, char *inp_line, char *delim);
+char				*ft_replace_line(char *s, t_mini *mini);
 #endif
