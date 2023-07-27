@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 16:32:32 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:42:12 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
+	if (!ft_check_mini_arg(mini->args[i + 1])
+		|| ft_expand_str(mini, i + 1) == 1)
+		return (1);
 	mini->exec_arr = malloc(1024 * sizeof(char *));
 	if (!mini->exec_arr)
 	{
 		free(mini->exec_arr);
 		ft_free_malloc(mini);
 	}
-	if (ft_expand_str(mini, i + 1) == 1)
-		return (1);
 	mini->exec_arr[0] = ft_strdup(mini->args[0]);
 	mini->exec_arr[1] = ft_strdup("/tmp/mini_here_doc_XXXXXX");
 	mini->exec_arr[2] = NULL;
 	mini->here++;
-	if (!ft_check_mini_arg(mini->args[i + 1]))
-		return (1);
 	free(mini->args[i]);
 	mini->args[i] = NULL;
 	mini->input_fd = open("/tmp/mini_here_doc_XXXXXX",

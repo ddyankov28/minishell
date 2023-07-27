@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 18:31:34 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:59:54 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,18 @@ char	*ft_replace_line(char *s, t_mini *mini)
 	return (output);
 }
 
-static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
+void	ft_message_inp(char *delim)
+{
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("minishell: warning: here-document ", 1);
+	ft_putstr_fd("delimited by end-of-file (wanted `", 1);
+	ft_putstr_fd(delim, 1);
+	ft_putstr_fd("')\n", 1);
+}
+
+static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim, char	*str)
 {
 	char	*new_delim;
-	char	*str;
 
 	new_delim = ft_new_str(mini, delim);
 	while (g_exit_status != 130)
@@ -79,7 +87,10 @@ static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim)
 		ft_putstr_fd("> ", 1);
 		inp_line = get_next_line(0);
 		if (!inp_line)
+		{
+			ft_message_inp(delim);
 			break ;
+		}
 		if (!ft_strncmp(inp_line, new_delim, ft_strlen(new_delim))
 			&& (inp_line[ft_strlen(new_delim)] == '\n'
 				|| inp_line[ft_strlen(new_delim)] == '\0'))
@@ -99,11 +110,13 @@ int	ft_read_input_redirection(t_mini *mini, int i)
 {
 	char	*input_line;
 	char	*delimiter;
+	char	*str;
 
+	str = NULL;
 	delimiter = ft_strdup(mini->args[i + 1]);
 	input_line = NULL;
 	signal(SIGINT, sigint_heredoc);
-	ft_heredoc_loop(mini, input_line, delimiter);
+	ft_heredoc_loop(mini, input_line, delimiter, str);
 	free(delimiter);
 	if (i == 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 17:22:28 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:49:30 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_command_not_found_loop(t_mini *mini, int i)
 	mini->fd = STDERR_FILENO;
 	while (mini->args[i])
 	{
+		ft_delete_quotes_for_str(mini, i);
 		mini->space_or_not = 1;
 		ft_echo_unclosed(mini, mini->args[i], 0);
 		if (mini->space_flag[i] != 0)
