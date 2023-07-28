@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 18:22:06 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:49:02 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ static int	ft_if_dollar(t_mini *mini)
 
 static int	ft_if_quotes(t_mini *mini)
 {
-	static int	count;
 
-	if (count == mini->xx)
+	if (mini->z == mini->xx)
 	{
 		if (mini->args[mini->xx][mini->j] == '\"')
 		{
@@ -67,7 +66,7 @@ static int	ft_if_quotes(t_mini *mini)
 			ft_delete_quotes_for_str(mini, mini->xx);
 			mini->sw_dollar = 1;
 		}
-		count++;
+		mini->z++;
 	}
 	return (0);
 }

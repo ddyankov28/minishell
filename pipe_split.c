@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:26:24 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/27 16:44:43 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:20:01 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_help_split_commands(t_mini *mini, int i, int index, char *command)
 			if (mini->args[i][0] == '|')
 				break ;
 			ft_strcat(command, mini->args[i]);
-			ft_strcat(command, " ");
+			if (mini->space_flag[i] == 1)
+				ft_strcat(command, " ");
 			i++;
 		}
 	}

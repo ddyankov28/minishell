@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 19:24:45 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:48:09 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_mini
 	char			*new_str;
 	int				in;
 	int				abc;
+	int				z;
 }					t_mini;
 
 extern unsigned int	g_exit_status;

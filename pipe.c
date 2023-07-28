@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 11:40:44 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:22:03 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_check_for_double_left_redirection(t_mini *mini)
 
 int	ft_execute_pipes(t_mini *mini)
 {
-	ft_expand(mini);
 	ft_split_into_commands(mini);
 	mini->num_commands = ft_len_2d_arr(mini->commands);
 	mini->pipe_fds = malloc(sizeof(int) * (2 * mini->num_commands));
@@ -92,6 +91,8 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 		execve(path, mini->exec_arr, mini->env);
 		exit(0);
 	}
+	if (mini->is_redirection == 0)
+		ft_expand(mini);
 	ft_execute_built_in_command(mini, mini->args);
 	ft_search_and_execute(mini, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:55:49 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 17:39:28 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:48:20 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	ft_init_another_struct(t_mini *mini)
 	mini->abc = 0;
 	mini->not_valid = 0;
 	mini->is_redirection = 0;
+	mini->z = 0;
 	mini->value = NULL;
 	return (0);
 }
