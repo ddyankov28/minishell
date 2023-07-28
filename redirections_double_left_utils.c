@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 18:59:54 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:26:06 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_message_inp(char *delim)
 	ft_putstr_fd("')\n", 1);
 }
 
-static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim, char	*str)
+static void	ft_heredoc_loop(t_mini *mini, char *inp_l, char *delim, char *str)
 {
 	char	*new_delim;
 
@@ -85,23 +85,23 @@ static void	ft_heredoc_loop(t_mini *mini, char *inp_line, char *delim, char	*str
 	while (g_exit_status != 130)
 	{
 		ft_putstr_fd("> ", 1);
-		inp_line = get_next_line(0);
-		if (!inp_line)
+		inp_l = get_next_line(0);
+		if (!inp_l)
 		{
 			ft_message_inp(delim);
 			break ;
 		}
-		if (!ft_strncmp(inp_line, new_delim, ft_strlen(new_delim))
-			&& (inp_line[ft_strlen(new_delim)] == '\n'
-				|| inp_line[ft_strlen(new_delim)] == '\0'))
+		if (!ft_strncmp(inp_l, new_delim, ft_strlen(new_delim))
+			&& (inp_l[ft_strlen(new_delim)] == '\n'
+				|| inp_l[ft_strlen(new_delim)] == '\0'))
 		{
 			ft_putstr_fd(NULL, mini->input_fd);
-			free(inp_line);
+			free(inp_l);
 			break ;
 		}
-		str = ft_replace_line(inp_line, mini);
+		str = ft_replace_line(inp_l, mini);
 		ft_putendl_fd(str, mini->input_fd);
-		free(inp_line);
+		free(inp_l);
 		free(str);
 	}
 }

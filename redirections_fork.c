@@ -6,11 +6,17 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 12:12:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 17:38:07 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:24:31 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
+
+void	ft_free_heredoc(t_mini *mini)
+{
+	ft_free_2d_arr(mini->exec_arr);
+	unlink("/tmp/mini_here_doc_XXXXXX");
+}
 
 void	ft_no_path(t_mini *mini)
 {

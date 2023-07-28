@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 18:42:12 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:24:04 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 	if (ft_read_input_redirection(mini, i) == 1)
 		return (1);
 	if (mini->here != mini->count_heredoc)
-		unlink("/tmp/mini_here_doc_XXXXXX");
+		ft_free_heredoc(mini);
 	return (0);
 }
 

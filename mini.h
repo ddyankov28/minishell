@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 18:23:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:24:45 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,4 +282,5 @@ int					ft_valid_or_not(t_mini *mini, int i);
 void				ft_yes_directory(t_mini *mini);
 int					ft_question(t_mini *mini);
 void				ft_allocate_and_initiate(t_mini *mini);
+void				ft_free_heredoc(t_mini *mini);
 #endif
