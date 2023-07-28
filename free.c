@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:52 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/22 13:10:39 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:39:52 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_free_input(t_mini *mini)
 	i = 0;
 	while (i < mini->index)
 	{
-		free(mini->args[i]);
+		if (mini->args[i] != NULL)
+			free(mini->args[i]);
 		i++;
 	}
 	free(mini->args);

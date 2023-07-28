@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 18:49:30 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:03:13 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	ft_check_path(t_mini *mini, char *path_env, int sw)
 	{
 		if (file_exists != -1 || errno == EACCES || errno == EPERM)
 		{
-			close(file_exists);
+			if (file_exists != -1)
+				close(file_exists);
 			if (access(mini->args[0], F_OK | X_OK) == 0)
 				ft_yes_directory(mini);
 			printf("minishell: %s: Permission denied\n", mini->args[0]);

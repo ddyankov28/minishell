@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:47:41 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/26 12:09:54 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:55:45 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_check_access_for_external(t_mini *mini, int i, char **dirs, char **args)
 	char	*dir_path;
 	char	*path;
 
+	if (mini->is_redirection != 0)
+		ft_delete_quotes_for_str(mini, 0);
 	dir_path = ft_strjoin(dirs[i], "/");
 	path = ft_strjoin(dir_path, args[0]);
 	free(dir_path);

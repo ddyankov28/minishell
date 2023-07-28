@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 11:42:55 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:17:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ int	ft_is_dircetory(t_mini *mini)
 		free(to_compare);
 	}
 	if (!env_value)
+	{
+		mini->exit_value = 0;
 		return (1);
+	}
 	if (access(env_value, F_OK | X_OK) == 0)
 	{
-		printf("minishell: %s: Is a directoy\n", env_value);
 		mini->exit_value = 126;
-		return (1);
+		return (printf("minishell: %s: Is a directoy\n", env_value), 1);
 	}
 	return (0);
 }
@@ -107,7 +109,7 @@ static void	ft_read_input(t_mini *mini)
 		ft_fork_redirections(mini);
 	if (mini->is_redirection == 0)
 		ft_expand(mini);
-	if (mini->args[0] == 0)
+	if (ft_exit_out(mini) == 1)
 		return ;
 	if (ft_is_builtin(mini, mini->args[0]))
 		ft_execute_built_ins(mini, mini->input);

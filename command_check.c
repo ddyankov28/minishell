@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/26 12:09:43 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:18:12 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_check_if_external(t_mini *mini)
 		return (1);
 	dirs = ft_split(path_env, ':');
 	i = 0;
+	ft_delete_quotes_for_str(mini, 0);
 	while (dirs[i])
 	{
 		if (ft_check_if_access(i, dirs, mini->args) == 1)
@@ -76,5 +77,15 @@ int	ft_check_if_access(int i, char **dirs, char **args)
 	}
 	if (x == 1)
 		free(path);
+	return (0);
+}
+
+int	ft_exit_out(t_mini *mini)
+{
+	if (mini->args[0] == 0)
+	{
+		mini->exit_value = 0;
+		return (1);
+	}
 	return (0);
 }
