@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/28 13:59:52 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:02:57 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ int	ft_check_if_external(t_mini *mini)
 	return (1);
 }
 
-static void	ft_blabla(int x, char *path, char **dirs)
+static void	ft_blabla(int x, char *path, char **dirs, char *str)
 {
 	if (x == 1)
 		free(path);
 	ft_free_2d_arr(dirs);
+	free(str);
 }
 
 int	ft_check_if_access(t_mini *mini, int i, char **dirs, char **args)
@@ -79,12 +80,12 @@ int	ft_check_if_access(t_mini *mini, int i, char **dirs, char **args)
 	free(dir_path);
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		ft_blabla(x, path, dirs);
+		ft_blabla(x, path, dirs, str);
 		return (1);
 	}
 	if (x == 1)
 		free(path);
-	return (0);
+	return (free(str), 0);
 }
 
 int	ft_exit_out(t_mini *mini)
