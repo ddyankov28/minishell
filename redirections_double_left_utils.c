@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_double_left_utils.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:35:19 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 19:26:06 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:59:53 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ int	ft_read_input_redirection(t_mini *mini, int i)
 	ft_heredoc_loop(mini, input_line, delimiter, str);
 	free(delimiter);
 	if (i == 0)
+	{
+		unlink("/tmp/mini_here_doc_XXXXXX");
 		return (1);
+	}
 	if (g_exit_status == 130)
 	{
 		unlink("/tmp/mini_here_doc_XXXXXX");
