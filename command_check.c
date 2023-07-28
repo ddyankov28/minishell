@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:11:35 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/28 13:18:12 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:59:52 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	ft_check_if_external(t_mini *mini)
 		return (1);
 	dirs = ft_split(path_env, ':');
 	i = 0;
-	ft_delete_quotes_for_str(mini, 0);
 	while (dirs[i])
 	{
-		if (ft_check_if_access(i, dirs, mini->args) == 1)
+		if (ft_check_if_access(mini, i, dirs, mini->args) == 1)
 			return (0);
 		i++;
 	}
@@ -52,27 +51,35 @@ int	ft_check_if_external(t_mini *mini)
 	return (1);
 }
 
-int	ft_check_if_access(int i, char **dirs, char **args)
+static void	ft_blabla(int x, char *path, char **dirs)
+{
+	if (x == 1)
+		free(path);
+	ft_free_2d_arr(dirs);
+}
+
+int	ft_check_if_access(t_mini *mini, int i, char **dirs, char **args)
 {
 	int		x;
 	char	*dir_path;
 	char	*path;
+	char	*str;
 
+	str = ft_strdup(args[0]);
 	x = 0;
+	str = ft_remove_quotes(mini, str);
 	dir_path = ft_strjoin(dirs[i], "/");
-	if (ft_strchr(args[0], '/') != NULL)
-		path = args[0];
+	if (ft_strchr(str, '/') != NULL)
+		path = str;
 	else
 	{
-		path = ft_strjoin(dir_path, args[0]);
+		path = ft_strjoin(dir_path, str);
 		x = 1;
 	}
 	free(dir_path);
 	if (access(path, F_OK | X_OK) == 0)
 	{
-		if (x == 1)
-			free(path);
-		ft_free_2d_arr(dirs);
+		ft_blabla(x, path, dirs);
 		return (1);
 	}
 	if (x == 1)

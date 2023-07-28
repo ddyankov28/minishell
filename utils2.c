@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 10:56:22 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/28 13:03:13 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:55:17 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ static void	ft_command_not_found_loop(t_mini *mini, int i)
 	mini->fd = STDERR_FILENO;
 	while (mini->args[i])
 	{
-		ft_delete_quotes_for_str(mini, i);
 		mini->space_or_not = 1;
-		ft_echo_unclosed(mini, mini->args[i], 0);
+		ft_putstr_fd(mini->args[i], mini->fd);
 		if (mini->space_flag[i] != 0)
 			break ;
 		i++;
@@ -28,23 +27,9 @@ static void	ft_command_not_found_loop(t_mini *mini, int i)
 
 void	ft_command_not_found(t_mini *mini, int sw, int i)
 {
-	char	*env_val;
-	char	*to_compare;
-
 	ft_command_not_found_loop(mini, i);
 	if (sw == 1)
 	{
-		if (mini->args[0][0] == '$' && mini->args[1] == NULL)
-		{
-			to_compare = ft_strtrim(mini->args[0], "$");
-			env_val = ft_get_value_from_env(mini->env, to_compare);
-			free(to_compare);
-			if (!env_val)
-			{
-				mini->exit_value = 0;
-				return ;
-			}
-		}
 		ft_putendl_fd(": command not found", mini->fd);
 		mini->exit_value = 127;
 	}

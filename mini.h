@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 13:18:25 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:01:05 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINI_H
 
 # include "./libft/libft.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -25,7 +26,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <errno.h>
 
 typedef struct s_mini
 {
@@ -119,8 +119,8 @@ void				ft_show_directory(t_mini *mini);
 void				ft_show_environment(t_mini *mini);
 
 // builtins_export_unset.c
-char				**ft_set_env_var(char *name, char *value,
-						char **env, t_mini *mini);
+char				**ft_set_env_var(char *name, char *value, char **env,
+						t_mini *mini);
 char				**ft_unset_environment_variable(t_mini *mini);
 char				**ft_modified_env(t_mini *mini, int count);
 void				ft_handle_export(t_mini *mini);
@@ -130,7 +130,7 @@ int					ft_name(t_mini *mini);
 int					ft_value(t_mini *mini);
 int					ft_env(char **env, char **new_env);
 
-//builtins_export_unset_utils2.c
+// builtins_export_unset_utils2.c
 void				ft_check_chars(t_mini *mini, int i);
 char				*ft_put_value(char *env_val, char *value,
 						char *final_value);
@@ -142,13 +142,14 @@ void				ft_change_directory(t_mini *mini);
 char				*ft_get_current_path(t_mini *mini);
 int					ft_check_arguments_num(t_mini *mini, char *current_path);
 
-//cd_utils.c
+// cd_utils.c
 void				ft_set_pwd(t_mini *mini);
 
 // command_check.c
 int					ft_check_if_command(t_mini *mini);
 int					ft_check_if_external(t_mini *mini);
-int					ft_check_if_access(int i, char **dirs, char **args);
+int					ft_check_if_access(t_mini *mini, int i, char **dirs,
+						char **args);
 
 // count_input_arguments.c
 void				ft_count_if_space(t_mini *mini);
@@ -163,17 +164,17 @@ void				ft_exit_if_no_path(t_mini *mini);
 void				ft_search_and_execute(t_mini *mini, int sw);
 int					ft_check_access_for_external(t_mini *mini, int i,
 						char **dirs, char **args);
-void				ft_execute_external(char *path, t_mini *mini, 
-						char **args, char **dirs);
+void				ft_execute_external(char *path, t_mini *mini, char **args,
+						char **dirs);
 
 // exit.c
 void				ft_exit(char *input, t_mini *mini);
 
-//expand.c
+// expand.c
 int					ft_expand(t_mini *mini);
 int					ft_expand_str(t_mini *mini, int i);
 
-//new_args.c
+// new_args.c
 char				*ft_get_new_str(t_mini *mini);
 //  free.c
 void				ft_free_input(t_mini *mini);
@@ -213,7 +214,7 @@ void				ft_fork_for_commands_extension(t_mini *mini, int i,
 void				ft_wait_for_processes(t_mini *mini, int num_commands);
 
 // redirections_double_left_utils.c
-int					ft_read_input_redirection(t_mini *mini,	int i);
+int					ft_read_input_redirection(t_mini *mini, int i);
 
 //  redirections_main.c
 int					ft_check_for_redirection(t_mini *mini);
@@ -285,4 +286,5 @@ int					ft_question(t_mini *mini);
 void				ft_allocate_and_initiate(t_mini *mini);
 void				ft_free_heredoc(t_mini *mini);
 int					ft_exit_out(t_mini *mini);
+char				*ft_remove_quotes(t_mini *mini, char *str);
 #endif

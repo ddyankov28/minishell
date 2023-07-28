@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/26 11:38:38 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:00:55 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_handle_spaceflag(t_mini *mini, int j)
 		{
 			ft_free_2d_arr(mini->env);
 			free(mini->space_flag);
-			exit (1);
+			exit(1);
 		}
 	}
 	else
@@ -102,4 +102,24 @@ int	ft_handle_spaceflag(t_mini *mini, int j)
 			mini->space_flag[mini->index] = 0;
 	}
 	return (0);
+}
+
+char	*ft_remove_quotes(t_mini *mini, char *str)
+{
+	int	j;
+
+	if (str[0] == '\'' || str[0] == '"')
+	{
+		if (ft_look_for_quote(mini, str, 0) == 1)
+		{
+			j = 0;
+			while (str[j])
+			{
+				str[j] = str[j + 1];
+				j++;
+			}
+			str[j - 2] = '\0';
+		}
+	}
+	return (str);
 }
