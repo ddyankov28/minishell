@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:43 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/25 12:02:37 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 14:34:32 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int	ft_envval_unclosed(t_mini *mini, char *args, char *str, int i)
 				ft_putchar_fd(args[i], mini->fd);
 			break ;
 		}
-		if (args[i] == ' ' || args[i] < 'A' || (args[i] > 'Z' && args[i] < 'a')
-			|| args[i] > 'z')
+		if (args[i] <= 47 || (args[i] >= 58 && args[i] <= 64)
+			|| (args[i] >= 91 && args[i] <= 94) || args[i] == 96 || args[i] >= 123)
 			break ;
 	}
 	str[j] = '\0';
