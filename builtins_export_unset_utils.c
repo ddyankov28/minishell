@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:39:47 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/27 17:35:44 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:28:48 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_name_extension(t_mini *mini)
 			i++;
 		}
 		else if (mini->args[1][i] == '+')
-			mini->plus++;
+			mini->export_sw++;
 		mini->name[i] = mini->args[1][i];
 		ft_check_chars(mini, i);
 		if (mini->args[1][i] == '=')
