@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_for_space_pipes_red.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/18 11:34:05 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:56:41 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,17 @@ void	ft_split_pipes(t_mini *mini)
 	mini->args[mini->index][j] = '\0';
 	ft_handle_spaceflag(mini, 2);
 	mini->index++;
+}
+
+void	ft_skip_dollar(t_mini *mini)
+{
+	if (mini->args[mini->xx + 1] != NULL)
+	{
+		if (ft_strcmp(mini->args[mini->xx], "$") == 0
+			&& mini->space_flag[mini->xx] == 0)
+		{
+			mini->xx++;
+			mini->z++;
+		}
+	}
 }

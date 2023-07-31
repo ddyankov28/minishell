@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 12:21:05 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:58:05 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,13 @@ static int	ft_if_quotes(t_mini *mini)
 		{
 			ft_delete_quotes_for_str(mini, mini->xx);
 			mini->sw_dollar = 2;
-			if (mini->args[mini->xx][mini->j] == '\0' && mini->space_flag[mini->xx - 1] == 1)
-			{
-				mini->new_str[mini->in++] = '\'';
-				mini->new_str[mini->in++] = '\'';
-			}
+			ft_write_quotes(mini);
 		}
 		else if (mini->args[mini->xx][mini->j] == '\'')
 		{
 			ft_delete_quotes_for_str(mini, mini->xx);
 			mini->sw_dollar = 1;
-			if (mini->args[mini->xx][mini->j] == '\0' && mini->space_flag[mini->xx - 1] == 1)
-			{
-				mini->new_str[mini->in++] = '\'';
-				mini->new_str[mini->in++] = '\'';
-			}
+			ft_write_quotes(mini);
 		}
 		mini->z++;
 	}
@@ -113,6 +105,7 @@ char	*ft_get_new_str(t_mini *mini)
 	ft_init_and_break(mini, 1);
 	while (mini->args[mini->xx])
 	{
+		ft_skip_dollar(mini);
 		ft_if_quotes(mini);
 		if (ft_x(mini) == 1)
 		{

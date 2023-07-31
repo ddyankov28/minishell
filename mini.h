@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 14:01:05 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:59:00 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,4 +287,6 @@ void				ft_allocate_and_initiate(t_mini *mini);
 void				ft_free_heredoc(t_mini *mini);
 int					ft_exit_out(t_mini *mini);
 char				*ft_remove_quotes(t_mini *mini, char *str);
+void				ft_write_quotes(t_mini *mini);
+void				ft_skip_dollar(t_mini *mini);
 #endif
