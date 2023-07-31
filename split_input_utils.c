@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:00:40 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/12 17:57:46 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:43:24 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,20 @@ int	ft_swap_arguments(t_mini *mini)
 	return (0);
 }
 
-void	ft_redirections_change_position(t_mini *mini)
+void	ft_redirections_change_position(t_mini *mini, int sw)
 {
-	if (!ft_strcmp(mini->args[0], "<") || !ft_strcmp(mini->args[0], ">")
-		|| !ft_strcmp(mini->args[0], ">>") || !ft_strcmp(mini->args[0], "<<"))
+	if (sw == 0)
 	{
-		ft_swap_arguments(mini);
-		ft_swap_arguments(mini);
+		if (ft_check_if_pipe(mini->args) != 1)
+		{
+			if (!ft_strcmp(mini->args[0], "<") || !ft_strcmp(mini->args[0], ">")
+				|| !ft_strcmp(mini->args[0], ">>") || !ft_strcmp(mini->args[0],
+					"<<"))
+			{
+				ft_swap_arguments(mini);
+				ft_swap_arguments(mini);
+			}
+		}
 	}
 }
 

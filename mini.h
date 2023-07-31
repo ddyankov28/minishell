@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:38:44 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/31 12:59:00 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:14:50 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINI_H
 
 # include "./libft/libft.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -242,8 +243,8 @@ void				ft_single_and_double_extension(t_mini *mini, int j, int x);
 // split_input_for_space_pipes_red.c
 void				ft_split_space(t_mini *mini);
 int					ft_put_in_args_extension(t_mini *mini);
-void				ft_split_redirections(t_mini *mini, char c);
-void				ft_split_pipes(t_mini *mini);
+int					ft_split_redirections(t_mini *mini, char c);
+int					ft_split_pipes(t_mini *mini);
 
 // split_input_main.c
 int					ft_split_input(t_mini *mini);
@@ -252,7 +253,7 @@ int					ft_handle_spaceflag(t_mini *mini, int j);
 
 // split_input_utils.c
 int					ft_swap_arguments(t_mini *mini);
-void				ft_redirections_change_position(t_mini *mini);
+void				ft_redirections_change_position(t_mini *mini, int sw);
 int					ft_look_for_quote(t_mini *mini, char *str, int i);
 void				ft_look_for_pair(t_mini *mini);
 int					ft_look_for_pair_in_pair(t_mini *mini);
@@ -289,4 +290,5 @@ int					ft_exit_out(t_mini *mini);
 char				*ft_remove_quotes(t_mini *mini, char *str);
 void				ft_write_quotes(t_mini *mini);
 void				ft_skip_dollar(t_mini *mini);
+int					ft_unexpected(t_mini *mini);
 #endif

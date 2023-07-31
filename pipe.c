@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/31 13:33:13 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:47:48 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_fork_for_commands_extension(t_mini *mini, int i, int *pipe_fds)
 
 	mini->input = mini->commands[i];
 	ft_split_input(mini);
+	ft_redirections_change_position(mini, 1);
 	if (!ft_check_for_redirection(mini))
 	{
 		free(pipe_fds);

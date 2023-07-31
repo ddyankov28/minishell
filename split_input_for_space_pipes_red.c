@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 12:56:41 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:14:35 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_put_in_args_extension(t_mini *mini)
 	return (0);
 }
 
-void	ft_split_redirections(t_mini *mini, char c)
+int	ft_split_redirections(t_mini *mini, char c)
 {
 	int	j;
 
@@ -72,9 +72,12 @@ void	ft_split_redirections(t_mini *mini, char c)
 	mini->args[mini->index][j] = '\0';
 	ft_handle_spaceflag(mini, 2);
 	mini->index++;
+	if (ft_unexpected(mini) == 1)
+		return (1);
+	return (0);
 }
 
-void	ft_split_pipes(t_mini *mini)
+int	ft_split_pipes(t_mini *mini)
 {
 	int	j;
 
@@ -84,13 +87,20 @@ void	ft_split_pipes(t_mini *mini)
 	if (!mini->args[mini->index])
 	{
 		free(mini->args[mini->index]);
-		return ;
+		ft_free_malloc(mini);
 	}
 	while (mini->input[mini->i] == '|')
 		mini->args[mini->index][j++] = mini->input[mini->i++];
 	mini->args[mini->index][j] = '\0';
 	ft_handle_spaceflag(mini, 2);
 	mini->index++;
+	ft_skip_spaces(mini, mini->input);
+	if (mini->input[mini->i] == '\0')
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_skip_dollar(t_mini *mini)

@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 14:17:57 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:11:35 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ static int	ft_loop_input_string(t_mini *mini)
 		else if (mini->input[mini->i] == '"')
 			ft_split_double_quotes(mini);
 		else if (mini->input[mini->i] == '<' || mini->input[mini->i] == '>')
-			ft_split_redirections(mini, mini->input[mini->i]);
-		else if (mini->input[mini->i] == '|')
-			ft_split_pipes(mini);
+		{
+			if (ft_split_redirections(mini, mini->input[mini->i]) == 1)
+				return (1);
+		}
+		else if (mini->input[mini->i] == '|' && ft_split_pipes(mini) == 1)
+			return (1);
 		else
 			ft_split_space(mini);
 	}
@@ -57,7 +60,7 @@ int	ft_split_input(t_mini *mini)
 		ft_free_input(mini);
 		return (1);
 	}
-	ft_redirections_change_position(mini);
+	ft_redirections_change_position(mini, 0);
 	mini->args[mini->index] = NULL;
 	return (0);
 }

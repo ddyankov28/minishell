@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:46:53 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/27 18:26:04 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:00:32 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,25 @@ int	ft_is_builtin(t_mini *mini, char *command)
 
 void	ft_yes_directory(t_mini *mini)
 {
-	execve(mini->args[0], mini->args, mini->env);
-	printf("minishell: %s: Is a directoy\n", mini->args[0]);
-	ft_free_2d_arr(mini->env);
-	ft_free_input(mini);
-	exit(126);
+	DIR	*dir;
+
+	dir = opendir(mini->args[0]);
+	if (dir != NULL)
+	{
+		printf("minishell: %s: Is a directoy\n", mini->args[0]);
+		ft_free_2d_arr(mini->env);
+		ft_free_input(mini);
+		closedir(dir);
+		exit(126);
+	}
+	else
+	{
+		closedir(dir);
+		execve(mini->args[0], mini->args, mini->env);
+		ft_free_2d_arr(mini->env);
+		ft_free_input(mini);
+		exit(1);
+	}
 }
 
 int	ft_question(t_mini *mini)

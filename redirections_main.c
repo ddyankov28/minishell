@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 12:36:38 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:18:22 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static int	ft_double_redirect_right(t_mini *mini, int i)
 	ft_delete_quotes_for_str(mini, i + 1);
 	mini->append_fd = open(mini->args[i + 1], O_CREAT | O_WRONLY | O_APPEND,
 			0777);
-	if (i == 0)
-		return (1);
 	if (mini->append_fd == -1)
 	{
 		perror("Append file error");
 		mini->exit_value = 1;
 		return (1);
 	}
+	if (i == 0)
+		return (1);
 	if (ft_redirect_right_check(mini))
 		return (1);
 	if (mini->append_fd != -1)
@@ -79,14 +79,14 @@ static int	ft_redirect_right(t_mini *mini, int i)
 	ft_delete_quotes_for_str(mini, i + 1);
 	mini->output_fd = open(mini->args[i + 1], O_CREAT | O_WRONLY | O_TRUNC,
 			0777);
-	if (i == 0)
-		return (1);
 	if (mini->output_fd < 0)
 	{
 		perror("open output file");
 		mini->exit_value = 1;
 		return (1);
 	}
+	if (i == 0)
+		return (1);
 	if (ft_redirect_right_check(mini))
 		return (1);
 	if (mini->output_fd != -1)
@@ -108,8 +108,6 @@ static int	ft_redirect_left(t_mini *mini, int i)
 	mini->args[i] = NULL;
 	ft_delete_quotes_for_str(mini, i + 1);
 	mini->input_fd = open(mini->args[i + 1], O_RDONLY);
-	if (i == 0)
-		return (1);
 	if (mini->input_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -118,6 +116,8 @@ static int	ft_redirect_left(t_mini *mini, int i)
 		mini->exit_value = 1;
 		return (1);
 	}
+	if (i == 0)
+		return (1);
 	return (0);
 }
 

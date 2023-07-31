@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:26:24 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 12:59:28 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:13:36 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,15 @@ void	ft_write_quotes(t_mini *mini)
 		mini->new_str[mini->in++] = '\'';
 		mini->new_str[mini->in++] = '\'';
 	}
+}
+
+int	ft_unexpected(t_mini *mini)
+{
+	ft_skip_spaces(mini, mini->input);
+	if (mini->input[mini->i] == '|')
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		return (1);
+	}
+	return (0);
 }

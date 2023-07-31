@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:19:26 by vstockma          #+#    #+#             */
-/*   Updated: 2023/06/28 15:58:39 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:23:51 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_count_if_single_quote(t_mini *mini)
 	}
 	if (mini->flag_for_pair == 1)
 		mini->flag_for_pair = 0;
+	mini->i++;
 	mini->argc++;
 }
 
@@ -70,6 +71,7 @@ void	ft_count_if_double_quote(t_mini *mini)
 	}
 	if (mini->flag_for_pair == 1)
 		mini->flag_for_pair = 0;
+	mini->i++;
 	mini->argc++;
 }
 
