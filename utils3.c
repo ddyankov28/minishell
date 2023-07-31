@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:55:49 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 12:32:03 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 14:11:40 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ft_swit(t_mini *mini)
 		mini->env_index++;
 	while (mini->envvv[mini->env_index] && mini->envvv[mini->env_index] != ' ')
 		mini->new_str[mini->in++] = mini->envvv[mini->env_index++];
-	mini->swit = 0;
+	if (mini->envvv[mini->env_index] == '\0')
+		mini->swit = 0;
 	return (1);
 }
 

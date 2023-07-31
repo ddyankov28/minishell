@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:29:34 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/28 14:00:55 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 14:17:57 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_split_input(t_mini *mini)
 	ft_count_arguments(mini);
 	mini->i = 0;
 	ft_handle_spaceflag(mini, 1);
-	mini->args = malloc(sizeof(char *) * (mini->argc + 5));
+	mini->args = ft_calloc(sizeof(char *), (mini->argc + 5));
 	if (!mini->args)
 	{
 		ft_free_2d_arr(mini->env);
