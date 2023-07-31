@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:50:50 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 11:22:03 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:43:25 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_execute_pipes(t_mini *mini)
 	ft_fork_for_commands(mini, mini->pipe_fds);
 	ft_close_pipes(mini->num_commands, mini->pipe_fds);
 	ft_wait_for_processes(mini, mini->num_commands);
+	if (mini->red_left > 0)
+		unlink("/tmp/mini_here_doc_XXXXXX");
 	free(mini->pipe_fds);
 	ft_free_2d_arr(mini->commands);
 	free(mini->pid_fork);
@@ -106,8 +108,6 @@ void	ft_wait_for_processes(t_mini *mini, int num_commands)
 	while (i < num_commands)
 	{
 		waitpid(mini->pid_fork[i], &status, 0);
-		if (mini->red_left > 0)
-			unlink("/tmp/mini_here_doc_XXXXXX");
 		if (status == 256 || status == 4)
 			mini->exit_value = 127;
 		else if (status == 2)
