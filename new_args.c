@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:07:05 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/28 13:27:00 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/07/31 12:21:05 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,21 @@ static int	ft_if_quotes(t_mini *mini)
 		{
 			ft_delete_quotes_for_str(mini, mini->xx);
 			mini->sw_dollar = 2;
+			if (mini->args[mini->xx][mini->j] == '\0' && mini->space_flag[mini->xx - 1] == 1)
+			{
+				mini->new_str[mini->in++] = '\'';
+				mini->new_str[mini->in++] = '\'';
+			}
 		}
 		else if (mini->args[mini->xx][mini->j] == '\'')
 		{
 			ft_delete_quotes_for_str(mini, mini->xx);
 			mini->sw_dollar = 1;
+			if (mini->args[mini->xx][mini->j] == '\0' && mini->space_flag[mini->xx - 1] == 1)
+			{
+				mini->new_str[mini->in++] = '\'';
+				mini->new_str[mini->in++] = '\'';
+			}
 		}
 		mini->z++;
 	}
