@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:49:15 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/24 11:51:28 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:06:52 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	ft_check_multiple_redirections(t_mini *mini)
 			mini->fd);
 		ft_putchar_fd(mini->input[mini->i - 1], mini->fd);
 		ft_putstr_fd("'\n", mini->fd);
+		mini->exit_value = 2;
 		return (1);
 	}
 	if (mini->index < 2)
@@ -118,6 +119,7 @@ int	ft_check_multiple_redirections(t_mini *mini)
 			mini->fd);
 		ft_putchar_fd(mini->input[mini->i - 1], mini->fd);
 		ft_putstr_fd("'\n", mini->fd);
+		mini->exit_value = 2;
 		return (1);
 	}
 	return (0);

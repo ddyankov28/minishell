@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:51:25 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/31 16:18:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:09:27 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_double_redirect_left(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1])
+	if (!ft_check_mini_arg(mini, mini->args[i + 1])
 		|| ft_expand_str(mini, i + 1) == 1)
 		return (1);
 	mini->exec_arr = malloc(1024 * sizeof(char *));
@@ -42,7 +42,7 @@ static int	ft_double_redirect_left(t_mini *mini, int i)
 
 static int	ft_double_redirect_right(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1])
+	if (!ft_check_mini_arg(mini, mini->args[i + 1])
 		|| ft_expand_str(mini, i + 1) == 1)
 		return (1);
 	free(mini->args[i]);
@@ -71,7 +71,7 @@ static int	ft_double_redirect_right(t_mini *mini, int i)
 
 static int	ft_redirect_right(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1])
+	if (!ft_check_mini_arg(mini, mini->args[i + 1])
 		|| ft_expand_str(mini, i + 1) == 1)
 		return (1);
 	free(mini->args[i]);
@@ -100,7 +100,7 @@ static int	ft_redirect_right(t_mini *mini, int i)
 
 static int	ft_redirect_left(t_mini *mini, int i)
 {
-	if (!ft_check_mini_arg(mini->args[i + 1]))
+	if (!ft_check_mini_arg(mini, mini->args[i + 1]))
 		return (1);
 	if (ft_expand_str(mini, i + 1) == 1)
 		return (1);

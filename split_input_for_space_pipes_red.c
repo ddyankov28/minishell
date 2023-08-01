@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:08 by vstockma          #+#    #+#             */
-/*   Updated: 2023/07/31 16:14:35 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:06:59 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	ft_split_pipes(t_mini *mini)
 	if (mini->input[mini->i] == '\0')
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
+		mini->exit_value = 2;
 		return (1);
 	}
 	return (0);

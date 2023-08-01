@@ -6,7 +6,7 @@
 /*   By: vstockma <vstockma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:46 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/07/28 13:17:22 by vstockma         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:06:16 by vstockma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ft_handle_input(t_mini *mini)
 	{
 		ft_free_input(mini);
 		printf("minishell: syntax error near unexpected token `|'\n");
+		mini->exit_value = 2;
 		return ;
 	}
 	else
